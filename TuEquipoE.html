@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Descubre Tu Equipo (Eneagrama) – Iglesia Northwood</title>
+<title data-i18n="page_title">Descubre Tu Equipo – Iglesia Northwood</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -38,6 +38,12 @@ header p{color:rgba(255,255,255,0.82);font-size:14px;font-weight:400;line-height
 .progress-label.active{color:var(--teal);}
 .progress-bar-bg{background:rgba(255,255,255,0.12);border-radius:2px;height:3px;overflow:hidden;}
 .progress-bar-fill{background:var(--teal);height:100%;border-radius:2px;transition:width 0.55s cubic-bezier(0.4,0,0.2,1);width:0%;}
+.progress-code-row{display:none;align-items:center;justify-content:flex-end;gap:8px;margin-top:10px;}
+.progress-code-row.visible{display:flex;}
+.progress-code-label{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);}
+.progress-code-value{font-family:Helvetica,monospace;font-size:13px;font-weight:800;color:var(--teal);letter-spacing:4px;background:rgba(255,255,255,0.07);border:1px solid rgba(0,186,188,0.3);border-radius:3px;padding:3px 10px;cursor:pointer;transition:background 0.2s;}
+.progress-code-value:hover{background:rgba(0,186,188,0.15);}
+.progress-code-copied{font-size:9px;font-weight:700;color:var(--teal);letter-spacing:1px;text-transform:uppercase;opacity:0;transition:opacity 0.3s;}
 
 main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
 .section{display:none;}
@@ -285,6 +291,12 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
 }
 .print-header{display:none;}
 
+/* LANGUAGE TOGGLE */
+.lang-toggle{position:absolute;top:16px;right:20px;z-index:10;display:flex;align-items:center;gap:0;border-radius:3px;overflow:hidden;border:1.5px solid rgba(255,255,255,0.35);}
+.lang-btn{padding:5px 11px;font-family:'Montserrat',Helvetica,sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.6);transition:all 0.2s;}
+.lang-btn.active{background:rgba(255,255,255,0.9);color:var(--teal);}
+.lang-btn:hover:not(.active){background:rgba(255,255,255,0.22);color:rgba(255,255,255,0.9);}
+
 /* FOOTER */
 .page-footer{background:var(--black);text-align:center;padding:24px;color:rgba(255,255,255,0.4);font-size:11px;font-weight:500;line-height:1.7;letter-spacing:0.3px;margin-top:40px;}
 .page-footer span{color:var(--teal);}
@@ -303,6 +315,10 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
 <body>
 
 <header>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btnES" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+  </div>
   <div class="header-inner">
     <div class="logo-mark">
       <svg viewBox="0 0 30 30" fill="none">
@@ -315,8 +331,8 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
     </div>
     <div class="header-text">
       <div class="logo-name">Iglesia Northwood</div>
-      <h1>Descubre Tu<br><span>Equipo Ideal</span></h1>
-      <p>Completa la evaluación para encontrar el ministerio donde Dios te diseñó para servir.</p>
+      <h1 data-i18n="header_h1">Descubre Tu<br><span data-i18n="header_h1_span">Equipo Ideal</span></h1>
+      <p data-i18n="header_sub">Completa la evaluación para encontrar el ministerio donde Dios te diseñó para servir.</p>
     </div>
   </div>
 </header>
@@ -324,13 +340,18 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
 <div class="progress-wrap">
   <div class="progress-inner">
     <div class="progress-labels">
-      <span class="progress-label active" id="lbl0">Inicio</span>
-      <span class="progress-label" id="lbl1">Eneagrama</span>
-      <span class="progress-label" id="lbl2">Tu Perfil</span>
-      <span class="progress-label" id="lbl3">Dones</span>
-      <span class="progress-label" id="lbl4">Resultados</span>
+      <span class="progress-label active" id="lbl0" data-i18n="prog_start">Inicio</span>
+      <span class="progress-label" id="lbl1" data-i18n="prog_ennea">Eneagrama</span>
+      <span class="progress-label" id="lbl2" data-i18n="prog_profile">Tu Perfil</span>
+      <span class="progress-label" id="lbl3" data-i18n="prog_gifts">Dones</span>
+      <span class="progress-label" id="lbl4" data-i18n="prog_results">Resultados</span>
     </div>
     <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <div class="progress-code-row" id="progressCodeRow">
+      <span class="progress-code-label" id="progressCodeLabel">Tu código</span>
+      <span class="progress-code-value" id="progressCodeValue" onclick="copyProgressCode()" title="Toca para copiar">----</span>
+      <span class="progress-code-copied" id="progressCodeCopied">✓ copiado</span>
+    </div>
   </div>
 </div>
 
@@ -570,7 +591,7 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
 </div>
 
 <footer class="page-footer">
-  <span>IGLESIA NORTHWOOD</span> · Ilumina tu comunidad
+  <span>IGLESIA NORTHWOOD</span> · <span data-i18n="footer_tagline">Ilumina tu comunidad</span>
 </footer>
 
 <script>
@@ -909,15 +930,16 @@ async function loadTeams(){
 function showBanner(loading,warn=false){
   const b=document.getElementById('sheetsBanner');
   const btn=document.getElementById('btnComenzar');
+  const L=TRANSLATIONS[currentLang];
   if(loading){
-    if(b){b.innerHTML=`<span class="sheets-dot sheets-dot-loading"></span> Cargando equipos de servicio en Northwood…`;b.className='sheets-banner loading';b.style.display='none';}
-    if(btn){btn.disabled=true;btn.textContent='CARGANDO EQUIPOS…';btn.style.cssText='background:var(--border);color:var(--text-soft);cursor:not-allowed;box-shadow:none;transform:none;';}
+    if(b){b.innerHTML=`<span class="sheets-dot sheets-dot-loading"></span> ${L.banner_loading}`;b.className='sheets-banner loading';b.style.display='none';}
+    if(btn){btn.disabled=true;btn.textContent=L.btn_loading;btn.style.cssText='background:var(--border);color:var(--text-soft);cursor:not-allowed;box-shadow:none;transform:none;';}
   } else if(warn){
-    if(b){b.innerHTML=`<span class="sheets-dot sheets-dot-warn"></span><span style="flex:1;">No se pudo conectar — usando equipos guardados localmente.</span><button onclick="retryLoad()" style="flex-shrink:0;background:var(--orange);color:#fff;border:none;border-radius:3px;padding:5px 12px;font-size:11px;font-weight:700;text-transform:uppercase;cursor:pointer;font-family:inherit;">↺ Reintentar</button>`;b.className='sheets-banner warn';b.style.display='flex';b.style.opacity='1';}
-    if(btn){btn.disabled=false;btn.textContent='COMENZAR →';btn.style.cssText='background:var(--orange);';}
+    if(b){b.innerHTML=`<span class="sheets-dot sheets-dot-warn"></span><span style="flex:1;">${L.banner_warn}</span><button onclick="retryLoad()" style="flex-shrink:0;background:var(--orange);color:#fff;border:none;border-radius:3px;padding:5px 12px;font-size:11px;font-weight:700;text-transform:uppercase;cursor:pointer;font-family:inherit;">${L.banner_retry}</button>`;b.className='sheets-banner warn';b.style.display='flex';b.style.opacity='1';}
+    if(btn){btn.disabled=false;btn.textContent=L.btn_start;btn.style.cssText='background:var(--orange);';}
   } else {
     if(b){b.style.display='none';}
-    if(btn){btn.disabled=false;btn.textContent='COMENZAR →';btn.style.cssText='background:var(--orange);';}
+    if(btn){btn.disabled=false;btn.textContent=L.btn_start;btn.style.cssText='background:var(--orange);';}
   }
 }
 async function retryLoad(){await loadTeams();}
@@ -962,17 +984,26 @@ function startWithName(){
   if(!fn){ document.getElementById('nameVal').style.display='block'; document.getElementById('inputFirstName').focus(); return; }
   userName = fn;
   userFullName = ln ? fn+' '+ln : fn;
-  // Personalize sec0
-  document.getElementById('introTitle').innerHTML = `Hola, <span>${fn}</span> — Diseño revela destino`;
-  document.getElementById('introDesc').textContent = `${fn}, esta evaluación usará el Eneagrama para descubrir tu tipo de personalidad y combinarlo con tus dones espirituales para encontrar el equipo ideal para ti en Iglesia Northwood.`;
+  initSessionCode();
+  const L = TRANSLATIONS[currentLang];
+  const greeting = currentLang==='en' ? `Hi, <span>${fn}</span> — Design reveals destiny` : `Hola, <span>${fn}</span> — Diseño revela destino`;
+  const subtext = currentLang==='en'
+    ? `${fn}, this assessment will use the Enneagram to discover your personality type and combine it with your spiritual gifts to find your ideal team at Iglesia Northwood.`
+    : `${fn}, esta evaluación usará el Eneagrama para descubrir tu tipo de personalidad y combinarlo con tus dones espirituales para encontrar el equipo ideal para ti en Iglesia Northwood.`;
+  document.getElementById('introTitle').innerHTML = greeting;
+  document.getElementById('introDesc').textContent = subtext;
   goTo(0);
 }
 
 // ═══════════════════════════════════════
 // SAVE / RESUME PROGRESS
 // ═══════════════════════════════════════
+// ═══════════════════════════════════════
+// SAVE / RESUME PROGRESS
+// ═══════════════════════════════════════
+let sessionCode = null; // Fixed for entire session — generated once at name entry
+
 function generateCode(){
-  // 4-char alphanumeric code from name + timestamp
   const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   const seed = userName.toUpperCase().charCodeAt(0)||65;
   let code='';
@@ -980,8 +1011,42 @@ function generateCode(){
   return code;
 }
 
+function initSessionCode(){
+  // Called once when user enters their name — code is fixed for the whole session
+  if(!sessionCode) sessionCode = generateCode();
+  updateProgressCodeWidget();
+}
+
+function updateProgressCodeWidget(){
+  const L = TRANSLATIONS[currentLang];
+  const label = currentLang==='en' ? 'Your code' : 'Tu código';
+  const hint = currentLang==='en' ? 'Tap to copy' : 'Toca para copiar';
+  const row = document.getElementById('progressCodeRow');
+  const val = document.getElementById('progressCodeValue');
+  const lbl = document.getElementById('progressCodeLabel');
+  if(row) row.classList.add('visible');
+  if(val && sessionCode){ val.textContent = sessionCode; val.title = hint; }
+  if(lbl) lbl.textContent = label;
+}
+
+function copyProgressCode(){
+  if(!sessionCode) return;
+  const copied = document.getElementById('progressCodeCopied');
+  const copyFn = () => {
+    if(copied){ copied.style.opacity='1'; setTimeout(()=>{ copied.style.opacity='0'; },1800); }
+  };
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(sessionCode).then(copyFn);
+  } else {
+    const ta=document.createElement('textarea');
+    ta.value=sessionCode; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    copyFn();
+  }
+}
+
 function saveProgress(){
-  const code = generateCode();
+  if(!sessionCode) return null;
   const data = {
     userName, userFullName,
     enneaAnswers, motivAnswers, tiebreakChoice,
@@ -990,17 +1055,18 @@ function saveProgress(){
     giftAnswers, giftSortOrder, rawGiftScores,
     currentSec: String(currentSec)
   };
-  try{ localStorage.setItem('nw_prog_'+code, JSON.stringify(data)); return code; }
+  try{ localStorage.setItem('nw_prog_'+sessionCode, JSON.stringify(data)); return sessionCode; }
   catch(e){ return null; }
 }
 
 function resumeProgress(){
   const code = document.getElementById('resumeCodeInput').value.trim().toUpperCase();
   const msg = document.getElementById('resumeMsg');
-  if(code.length!==4){ msg.style.display='block'; msg.style.color='var(--orange)'; msg.textContent='El código debe tener 4 caracteres.'; return; }
+  const L = TRANSLATIONS[currentLang];
+  if(code.length!==4){ msg.style.display='block'; msg.style.color='var(--orange)'; msg.textContent=L.resume_err_len; return; }
   try{
     const raw = localStorage.getItem('nw_prog_'+code);
-    if(!raw){ msg.style.display='block'; msg.style.color='var(--orange)'; msg.textContent='Código no encontrado. Verifica e intenta de nuevo.'; return; }
+    if(!raw){ msg.style.display='block'; msg.style.color='var(--orange)'; msg.textContent=L.resume_err_notfound; return; }
     const d = JSON.parse(raw);
     userName=d.userName||''; userFullName=d.userFullName||userName;
     enneaAnswers=d.enneaAnswers||new Array(54).fill(null);
@@ -1012,16 +1078,23 @@ function resumeProgress(){
     discTiebreakChoice=d.discTiebreakChoice||null;
     giftAnswers=d.giftAnswers||new Array(72).fill(null);
     giftSortOrder=d.giftSortOrder||[]; rawGiftScores=d.rawGiftScores||{};
+    sessionCode = code; // restore the fixed code for this session
     document.getElementById('inputFirstName').value=userName;
     document.getElementById('inputLastName').value=userFullName.replace(userName,'').trim();
     buildEnnea(); buildGifts();
-    // Restore personalized text
-    document.getElementById('introTitle').innerHTML=`Hola, <span>${userName}</span> — Diseño revela destino`;
-    document.getElementById('introDesc').textContent=`${userName}, bienvenido/a de regreso. Continúa donde te quedaste.`;
+    updateProgressCodeWidget();
+    const greeting = currentLang==='en'
+      ? `Hi, <span>${userName}</span> — Design reveals destiny`
+      : `Hola, <span>${userName}</span> — Diseño revela destino`;
+    const welcomeBack = currentLang==='en'
+      ? `${userName}, welcome back. Continue where you left off.`
+      : `${userName}, bienvenido/a de regreso. Continúa donde te quedaste.`;
+    document.getElementById('introTitle').innerHTML=greeting;
+    document.getElementById('introDesc').textContent=welcomeBack;
     const sec = d.currentSec==='Name'?0:d.currentSec;
     goTo(isNaN(sec)?sec:Number(sec));
-    msg.style.display='block'; msg.style.color='var(--teal-dark)'; msg.textContent='✓ Progreso restaurado correctamente.';
-  }catch(e){ msg.style.display='block'; msg.style.color='var(--orange)'; msg.textContent='Error al restaurar. Intenta de nuevo.'; }
+    msg.style.display='block'; msg.style.color='var(--teal-dark)'; msg.textContent=L.resume_ok;
+  }catch(e){ msg.style.display='block'; msg.style.color='var(--orange)'; msg.textContent=L.resume_err_fail; }
 }
 
 // ═══════════════════════════════════════
@@ -1029,12 +1102,20 @@ function resumeProgress(){
 // ═══════════════════════════════════════
 function personalizeSection(secId){
   const n = userName || '';
-  const map = {
+  const L = TRANSLATIONS[currentLang];
+  const isEn = currentLang==='en';
+  const map = isEn ? {
+    1: { desc: `${n ? n+', a' : 'A'}nswer based on how you are most of your life, not how you wish you were.` },
+    '1b': { desc: `The Enneagram is based on motivations more than behaviors${n?', '+n:''}. These questions refine your profile.` },
+    2: { desc: `${n ? n+', t' : 'T'}his is how God designed you. These strengths are exactly what the right team needs.` },
+    3: { desc: `${n ? n+', r' : 'R'}ead each statement and select how often it describes you.` },
+    '3b': { title: `${n ? n+', in' : 'In'} which area does <span>God use you most?</span>` }
+  } : {
     1: { desc: `${n ? n+', r' : 'R'}esponde según cómo eres la mayor parte de tu vida, no cómo quisieras ser.` },
-    '1b': { desc: `El eneagrama se basa en motivaciones más que en comportamientos, ${n}. Estas preguntas afinan tu perfil.` },
+    '1b': { desc: `El eneagrama se basa en motivaciones más que en comportamientos${n?', '+n:''}. Estas preguntas afinan tu perfil.` },
     2: { desc: `${n ? n+', a' : 'A'}sí es como Dios te diseñó. Estas fortalezas son exactamente lo que el equipo correcto necesita.` },
     3: { desc: `${n ? n+', l' : 'L'}ee cada afirmación y selecciona con qué frecuencia te describe.` },
-    '3b': { title: `${n ? n+', ¿en' : '¿En'} cuál área te usa más Dios?` }
+    '3b': { title: `${n ? n+', ¿en' : '¿En'} cuál área te usa <span>más Dios?</span>` }
   };
   const el = document.getElementById('sec'+secId);
   if(!el) return;
@@ -1059,6 +1140,11 @@ function goTo(n){
   ['lbl0','lbl1','lbl2','lbl3','lbl4'].forEach((id,i)=>
     document.getElementById(id).classList.toggle('active',i<=labelIdx));
   personalizeSection(n);
+  // Show/hide code widget: visible during assessment, hidden on results
+  const row = document.getElementById('progressCodeRow');
+  if(row && sessionCode){
+    row.classList.toggle('visible', n!=='Name' && n!==0 && n!==4);
+  }
   window.scrollTo({top:0,behavior:'smooth'});
   if(n!=='Name' && n!==0) saveProgress();
 }
@@ -1118,14 +1204,17 @@ function calculateResults(){
     else if(t.gifts.includes(sorted[0][0])) sc+=4;
 
     // ── Build personalized "why" explanation
-    const matchedGifts=t.gifts.filter(g=>adj[g]>10).map(g=>GIFT_NAMES[g]);
+    const L=TRANSLATIONS[currentLang];
+    const giftNamesLang = currentLang==='en' ? GIFT_NAMES_EN : GIFT_NAMES;
+    const discNamesLang = TRANSLATIONS[currentLang].disc_names;
+    const matchedGifts=t.gifts.filter(g=>adj[g]>10).map(g=>giftNamesLang[g]);
     const discMatch=(t.disc||[]).includes(discPrimary)||(t.disc||[]).includes(discSecondary);
     const enneaMatch=(t.eneagramas||[]).includes(primaryType)||(t.eneagramas||[]).includes(secondaryType);
     const whyParts=[];
-    if(matchedGifts.length) whyParts.push(`Tu don de ${matchedGifts[0]} es una necesidad real en este equipo`);
-    if(discMatch && discPrimary) whyParts.push(`tu estilo ${discPrimary} (${DISC_NAMES[discPrimary]}) encaja con la dinámica del equipo`);
-    if(enneaMatch) whyParts.push(`tu Eneatipo ${primaryType} aporta exactamente lo que necesitan`);
-    const why=whyParts.length?whyParts.join(' y ')+'.':'Tus dones complementan bien las necesidades de este equipo.';
+    if(matchedGifts.length) whyParts.push(`${L.why_gift} ${matchedGifts[0]} ${L.why_gift_suffix}`);
+    if(discMatch && discPrimary) whyParts.push(`${L.why_disc} ${discPrimary} (${discNamesLang[discPrimary]}) ${L.why_disc_suffix}`);
+    if(enneaMatch) whyParts.push(`${L.why_ennea} ${primaryType} ${L.why_ennea_suffix}`);
+    const why=whyParts.length?whyParts.join(' and ')+'.':L.why_default;
 
     return{...t, score:Math.min(99,Math.round(sc)), why};
   }).sort((a,b)=>b.score-a.score);
@@ -1159,46 +1248,50 @@ function drawQR(canvasId, text){
 // RENDER RESULTS
 // ═══════════════════════════════════════
 function renderResults(topTeams, topGifts, orphans){
-  const rankL=['✦ MEJOR COINCIDENCIA','2ª OPCIÓN','3ª OPCIÓN','4ª OPCIÓN'];
-  const n = userName || 'amigo/a';
+  const L=TRANSLATIONS[currentLang];
+  const giftNamesL = currentLang==='en' ? GIFT_NAMES_EN : GIFT_NAMES;
+  const typesL = currentLang==='en' ? ENNEA_TYPES_EN : ENNEA_TYPES;
+  const discNamesL = L.disc_names;
+  const rankL = L.results_rank;
+  const n = userName || (currentLang==='en'?'friend':'amigo/a');
   const savedCode = saveProgress() || '----';
 
   const orphanHtml = orphans.length ? `
     <div class="orphan-alert">
-      <h4>🌟 Don sin equipo asignado</h4>
-      <p>${n}, tu don de <strong>${orphans.map(([k])=>GIFT_NAMES[k]).join(' y ')}</strong> es poderoso y merece ser canalizado. Habla con un líder de Northwood sobre cómo usar este don — puede que estemos por iniciar un equipo que lo necesite.</p>
+      <h4>${L.results_orphan_title}</h4>
+      <p>${n}, ${L.results_orphan_body} <strong>${orphans.map(([k])=>giftNamesL[k]).join(currentLang==='en'?' and ':' y ')}</strong> ${L.results_orphan_suffix}</p>
     </div>` : '';
 
   document.getElementById('resultsContent').innerHTML=`
     <div class="result-hero">
-      <div class="result-hero-label">Resultados de ${userFullName} · Iglesia Northwood</div>
-      <div class="result-hero-title">${n}, tu don principal es: <span>${GIFT_NAMES[topGifts[0][0]]}</span></div>
-      <div class="result-hero-sub">Eneatipo ${primaryType} · ${ENNEA_TYPES[primaryType].name} · DISC ${discPrimary||'?'}${discSecondary||''}</div>
+      <div class="result-hero-label">${L.results_label_prefix} ${userFullName} ${L.results_label_suffix}</div>
+      <div class="result-hero-title">${n}, ${L.results_hero_main_gift} <span>${giftNamesL[topGifts[0][0]]}</span></div>
+      <div class="result-hero-sub">${currentLang==='en'?'Enneagram Type':'Eneatipo'} ${primaryType} · ${typesL[primaryType].name} · DISC ${discPrimary||'?'}${discSecondary||''}</div>
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:22px;">
       <div class="result-stat">
         <div class="result-stat-val" style="font-size:28px;letter-spacing:-2px;">${primaryType}</div>
-        <div class="result-stat-lbl">Eneatipo</div>
-        <div style="font-size:10px;color:var(--text-soft);margin-top:3px;font-weight:600;">${ENNEA_TYPES[primaryType].name}</div>
+        <div class="result-stat-lbl">${L.results_enneaType}</div>
+        <div style="font-size:10px;color:var(--text-soft);margin-top:3px;font-weight:600;">${typesL[primaryType].name}</div>
       </div>
       <div class="result-stat">
         <div class="result-stat-val" style="font-size:24px;letter-spacing:-1px;color:var(--dark);">${discPrimary||'?'}${discSecondary||''}</div>
-        <div class="result-stat-lbl">DISC</div>
-        <div style="font-size:10px;color:var(--text-soft);margin-top:3px;font-weight:600;">${discPrimary?DISC_NAMES[discPrimary]:''}</div>
+        <div class="result-stat-lbl">${L.results_disc}</div>
+        <div style="font-size:10px;color:var(--text-soft);margin-top:3px;font-weight:600;">${discPrimary?discNamesL[discPrimary]:''}</div>
       </div>
       <div class="result-stat">
-        <div class="result-stat-val" style="font-size:13px;padding-top:6px;line-height:1.3;">${GIFT_NAMES[topGifts[0][0]]}</div>
-        <div class="result-stat-lbl">Don #1</div>
+        <div class="result-stat-val" style="font-size:13px;padding-top:6px;line-height:1.3;">${giftNamesL[topGifts[0][0]]}</div>
+        <div class="result-stat-lbl">${L.results_gift1}</div>
       </div>
     </div>
 
     <div class="gifts-summary">
-      <h3>Top 5 Dones Espirituales de ${n}</h3>
+      <h3>${L.results_topgifts} ${n}</h3>
       ${topGifts.map(([k,v],i)=>`
         <div class="top-gift-row">
           <div class="gift-rank-num">${i+1}</div>
-          <div class="gift-name-full">${GIFT_NAMES[k]}</div>
+          <div class="gift-name-full">${giftNamesL[k]}</div>
           <div class="gift-bar-bg"><div class="gift-bar-fill" style="width:${Math.round(v/13.5*100)}%"></div></div>
           <div class="gift-score-val">${v.toFixed(1)}</div>
         </div>`).join('')}
@@ -1207,90 +1300,93 @@ function renderResults(topTeams, topGifts, orphans){
     ${orphanHtml}
 
     <div class="teams-section-label">
-      <div class="section-label">Equipos Compatibles</div>
-      <h2 class="section-title">${n}, estos son tus ministerios <span>ideales</span></h2>
+      <div class="section-label">${L.results_teams_label}</div>
+      <h2 class="section-title">${n}, ${L.results_teams_title} <span>${L.results_teams_title_span}</span></h2>
     </div>
 
     <div class="teams-grid">
-      ${topTeams.map((t,i)=>`
+      ${topTeams.map((tm,i)=>`
         <div class="team-card rank-${i+1}">
           <div class="team-left">
-            <div class="team-badge">${t.emoji}</div>
+            <div class="team-badge">${tm.emoji}</div>
             <div class="match-score">
-              <div class="match-pct">${t.score}%</div>
-              <div class="match-pct-label">MATCH</div>
+              <div class="match-pct">${tm.score}%</div>
+              <div class="match-pct-label">${L.results_match}</div>
             </div>
           </div>
           <div class="team-info">
             <div class="team-rank">${rankL[i]}</div>
-            <div class="team-name">${t.name}</div>
-            <div class="team-desc">${t.desc}</div>
-            <div class="team-gifts">${t.gifts.map(g=>`<span class="gift-tag">${GIFT_NAMES[g]}</span>`).join('')}</div>
-            <div class="team-why">💡 ${t.why}</div>
+            <div class="team-name">${tm.name}</div>
+            <div class="team-desc">${tm.desc}</div>
+            <div class="team-gifts">${tm.gifts.map(g=>`<span class="gift-tag">${giftNamesL[g]}</span>`).join('')}</div>
+            <div class="team-why">💡 ${tm.why}</div>
           </div>
         </div>`).join('')}
     </div>
 
     <div class="verse-box">
-      <p class="verse-text">"Dios, de su gran variedad de dones espirituales, les ha dado un don a cada uno de ustedes. Úsenlos bien para servirse los unos a los otros."</p>
-      <p class="verse-ref">1 Pedro 4:10</p>
+      <p class="verse-text">${L.results_verse}</p>
+      <p class="verse-ref">${L.results_verse_ref}</p>
     </div>
 
     <div class="cta-card">
       <div class="accent-line"></div>
-      <h3>¿Qué sigue, ${n}?</h3>
-      <p>Habla con un líder de Iglesia Northwood sobre unirte al equipo que más te llamó la atención. ¡Ilumina tu comunidad — tus dones son necesarios aquí!</p>
+      <h3>${L.results_cta_title} ${n}?</h3>
+      <p>${L.results_cta_body}</p>
     </div>
 
     <div class="qr-card">
-      <h3>Código QR de tus resultados</h3>
+      <h3>${L.results_qr_title}</h3>
       <canvas id="qrCanvas"></canvas>
-      <p class="qr-hint">Muéstrale este QR a un líder para que vea tu perfil completo.</p>
+      <p class="qr-hint">${L.results_qr_hint}</p>
     </div>
 
     <div class="export-card">
-      <h3>Guarda o comparte tus resultados</h3>
+      <h3>${L.results_export_title}</h3>
       <button class="btn-share" onclick="shareResults()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        Copiar para compartir (WhatsApp / Email)
+        ${L.results_share_btn}
       </button>
-      <p class="share-copied" id="shareCopied">✓ ¡Copiado! Pégalo en WhatsApp o donde quieras.</p>
+      <p class="share-copied" id="shareCopied">${L.results_share_copied}</p>
       <div class="export-row">
         <button class="btn-export btn-export-pdf" onclick="downloadPDF()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-          Bajar como PDF
+          ${L.results_pdf}
         </button>
         <button class="btn-export btn-export-email" onclick="openEmailModal()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Enviar por Email
+          ${L.results_email_btn}
         </button>
       </div>
     </div>
 
     <div class="save-card" style="margin-top:0;">
-      <h4>Tu código de progreso</h4>
+      <h4>${L.results_save_title}</h4>
       <div class="save-code">${savedCode}</div>
-      <p class="save-hint">Guarda este código para retomar en <strong>este mismo dispositivo y navegador</strong>.</p>
-      <p style="font-size:11px;color:var(--orange);font-weight:600;margin-top:7px;text-align:center;">⚠️ No funcionará si cambias de dispositivo, navegador o borras el caché.</p>
+      <p class="save-hint">${L.results_save_hint}</p>
+      <p style="font-size:11px;color:var(--orange);font-weight:600;margin-top:7px;text-align:center;">${L.results_save_warning}</p>
     </div>
 
     <div class="restart-row">
-      <button class="btn-restart" onclick="restart()">↺ Hacer la evaluación de nuevo</button>
+      <button class="btn-restart" onclick="restart()">${L.btn_restart}</button>
     </div>`;
 
-  // Generate QR after DOM is ready
   setTimeout(()=>{
-    const qrText=`Northwood | ${userFullName} | E:${primaryType}/${secondaryType} | Dones:${topGifts.slice(0,3).map(([k])=>k).join(',')} | Equipo:${topTeams[0]?.name||''}`;
+    const qrText=`Northwood | ${userFullName} | E:${primaryType}/${secondaryType} | Gifts:${topGifts.slice(0,3).map(([k])=>k).join(',')} | Team:${topTeams[0]?.name||''}`;
     drawQR('qrCanvas', qrText);
   }, 100);
 }
+
 
 // ═══════════════════════════════════════
 // PDF & EMAIL
 // ═══════════════════════════════════════
 function downloadPDF(){
+  const subtitle = currentLang==='en'
+    ? `${userFullName} · Discover Your Team · Enneagram Results`
+    : `${userFullName} · Descubre Tu Equipo · Resultados Eneagrama`;
   const ph=document.createElement('div');ph.className='print-header';ph.id='tmpPH';
-  ph.innerHTML=`<div style="width:36px;height:36px;border-radius:50%;background:#00babc;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 30 30" fill="none" width="20" height="20"><circle cx="15" cy="15" r="13" stroke="white" stroke-width="1.5" fill="none"/><line x1="15" y1="5" x2="15" y2="25" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="13" x2="21" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div><div><strong style="font-size:13px;font-weight:800;color:#00babc;text-transform:uppercase;letter-spacing:2px;display:block;">Iglesia Northwood</strong><span style="font-size:11px;color:#7a7d7d;">${userFullName} · Descubre Tu Equipo · Resultados Eneagrama</span></div>`;
+  ph.innerHTML=`<div style="width:36px;height:36px;border-radius:50%;background:#00babc;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 30 30" fill="none" width="20" height="20"><circle cx="15" cy="15" r="13" stroke="white" stroke-width="1.5" fill="none"/><line x1="15" y1="5" x2="15" y2="25" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="13" x2="21" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div><div><strong style="font-size:13px;font-weight:800;color:#00babc;text-transform:uppercase;letter-spacing:2px;display:block;">Iglesia Northwood</strong><span style="font-size:11px;color:#7a7d7d;">${subtitle}</span></div>`;
   document.getElementById('resultsContent').insertBefore(ph,document.getElementById('resultsContent').firstChild);
   window.print();
   setTimeout(()=>{document.getElementById('tmpPH')?.remove();},1000);
@@ -1308,36 +1404,29 @@ function sendEmail(){
   const note=document.getElementById('emailNote').value.trim();
   if(!recipient){document.getElementById('recipientEmail').focus();document.getElementById('recipientEmail').style.borderColor='var(--orange)';return;}
   document.getElementById('recipientEmail').style.borderColor='';
+  const L=TRANSLATIONS[currentLang];
+  const giftNamesL = currentLang==='en' ? GIFT_NAMES_EN : GIFT_NAMES;
+  const typesL = currentLang==='en' ? ENNEA_TYPES_EN : ENNEA_TYPES;
   const top5=Object.entries(rawGiftScores).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  const subject=encodeURIComponent(`Resultados Eneagrama – ${name||userFullName} | Iglesia Northwood`);
-  const body=encodeURIComponent(
-`¡Hola!
-
-${name||userFullName} ha completado la evaluación del Eneagrama y Dones Espirituales en Iglesia Northwood.
-
-━━━━━━━━━━━━━━━━━━━━━━━━
-PERFIL DEL ENEAGRAMA
-━━━━━━━━━━━━━━━━━━━━━━━━
-Eneatipo Principal: ${primaryType} — ${ENNEA_TYPES[primaryType].name}
-Ala Secundaria: ${secondaryType} — ${ENNEA_TYPES[secondaryType].name}
-
-━━━━━━━━━━━━━━━━━━━━━━━━
-TOP 5 DONES ESPIRITUALES
-━━━━━━━━━━━━━━━━━━━━━━━━
-${top5.map(([k,v],i)=>`${i+1}. ${GIFT_NAMES[k]} (${v}/12)`).join('\n')}
-
-Orden de prioridad: ${giftSortOrder.map(k=>GIFT_NAMES[k]).join(' → ')}
-
-${note?'━━━━━━━━━━━━━━━━━━━━━━━━\nMENSAJE\n━━━━━━━━━━━━━━━━━━━━━━━━\n'+note+'\n':''}
-━━━━━━━━━━━━━━━━━━━━━━━━
-Iglesia Northwood · Ilumina tu comunidad
-`);
-  window.location.href=`mailto:${recipient}?subject=${subject}&body=${body}`;
+  const greeting = currentLang==='en' ? 'Hello!' : '¡Hola!';
+  const intro = currentLang==='en'
+    ? `${name||userFullName} has completed the Enneagram and Spiritual Gifts assessment at Iglesia Northwood.`
+    : `${name||userFullName} ha completado la evaluación del Eneagrama y Dones Espirituales en Iglesia Northwood.`;
+  const subject=encodeURIComponent(L.email_subject(name||userFullName));
+  const sep='━━━━━━━━━━━━━━━━━━━━━━━━';
+  const giftsLines=top5.map(([k,v],i)=>(i+1)+'. '+giftNamesL[k]+' ('+v+'/12)').join('\n');
+  const priorityLine=giftSortOrder.map(k=>giftNamesL[k]).join(' → ');
+  const noteBlock=note?(sep+'\n'+L.email_msg_hdr+'\n'+sep+'\n'+note+'\n'):'';
+  const bodyTxt=greeting+'\n\n'+intro+'\n\n'+sep+'\n'+L.email_profile_hdr+'\n'+sep+'\n'+L.email_primary+' '+primaryType+' — '+typesL[primaryType].name+'\n'+L.email_secondary+' '+secondaryType+' — '+typesL[secondaryType].name+'\n\n'+sep+'\n'+L.email_gifts_hdr+'\n'+sep+'\n'+giftsLines+'\n\n'+L.email_priority+' '+priorityLine+'\n\n'+noteBlock+sep+'\n'+L.email_footer+'\n';
+  window.location.href=`mailto:${recipient}?subject=${subject}&body=${encodeURIComponent(bodyTxt)}`;
   closeEmailModal();
 }
 
 function restart(){
   userName=''; userFullName='';
+  sessionCode = null;
+  const row = document.getElementById('progressCodeRow');
+  if(row) row.classList.remove('visible');
   enneaAnswers=new Array(54).fill(null);
   motivAnswers=new Array(9).fill(null);
   tiebreakChoice=null; primaryType=null; secondaryType=null;
@@ -1359,16 +1448,19 @@ document.getElementById('emailModal').addEventListener('click',function(e){if(e.
 function buildEnnea(){
   const wrap=document.getElementById('enneaContainer');
   wrap.innerHTML='';
-  ENNEA_Q.forEach((item,i)=>{
+  const questions = currentLang==='en' ? ENNEA_Q_EN : ENNEA_Q;
+  const scale = TRANSLATIONS[currentLang].scale4;
+  const L = TRANSLATIONS[currentLang];
+  questions.forEach((item,i)=>{
     const d=document.createElement('div');
     d.className='q-card';
     d.innerHTML=`
-      <div class="q-num">Pregunta ${i+1} de 54</div>
+      <div class="q-num">${L.motiv_q_prefix} ${i+1} ${currentLang==='en'?'of':'de'} 54</div>
       <div class="q-text">${item.q}</div>
       <div class="q-opts">
         ${[1,2,3,4].map((v,vi)=>`
           <div class="q-opt${enneaAnswers[i]===v?' selected':''}" onclick="setEnnea(${i},${v},this)">
-            <span class="on">${v}</span>${SCALE4[vi]}
+            <span class="on">${v}</span>${scale[vi]}
           </div>`).join('')}
       </div>`;
     wrap.appendChild(d);
@@ -1404,32 +1496,7 @@ function submitEnnea(){
 // BUILD MOTIVATION QUESTIONS
 // ═══════════════════════════════════════
 function buildMotiv(){
-  const wrap=document.getElementById('motivContainer');
-  wrap.innerHTML='';
-  MOTIV_Q.forEach((mq,i)=>{
-    const section=document.createElement('div');
-    section.className='motiv-section';
-    section.innerHTML=`
-      <div class="motiv-intro">
-        <strong style="color:var(--teal);">Pregunta ${i+1} de 9</strong> &nbsp;·&nbsp; ${mq.q}
-      </div>
-      <div id="motiv_opts_${i}">
-        ${mq.opts.map((opt,oi)=>`
-          <div class="motiv-card${motivAnswers[i]===opt.t?' selected':''}" onclick="setMotiv(${i},${opt.t},this,${oi})">
-            <div class="motiv-top">
-              <div class="motiv-num" style="background:${ENNEA_TYPES[opt.t].color};">${opt.t}</div>
-              <div class="motiv-body">
-                <div class="motiv-title">${ENNEA_TYPES[opt.t].name}</div>
-                <div class="motiv-desc">${opt.text}</div>
-              </div>
-              <div class="motiv-check">
-                <svg viewBox="0 0 12 12" fill="none"><polyline points="1,6 4.5,9.5 11,2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-          </div>`).join('')}
-      </div>`;
-    wrap.appendChild(section);
-  });
+  buildMotiv_ui();
 }
 
 function setMotiv(qi,typeNum,el,oi){
@@ -1514,16 +1581,17 @@ function submitTiebreak(){
 // ═══════════════════════════════════════
 function renderProfile(scores){
   const p=primaryType,s=secondaryType;
-  const data=ENNEA_TYPES[p];
+  const types = currentLang==='en' ? ENNEA_TYPES_EN : ENNEA_TYPES;
+  const data=types[p];
+  const discNames=TRANSLATIONS[currentLang].disc_names;
   const n=userName||'';
-  const discLine=discPrimary?` · DISC: ${discPrimary}${discSecondary?discSecondary:''}`:'' ;
-  document.getElementById('profileTitle').innerHTML=`${n?n+', tu':' Tu'} perfil: <span>E${p} · DISC ${discPrimary||'?'}${discSecondary||''}</span>`;
+  const L=TRANSLATIONS[currentLang];
+  document.getElementById('profileTitle').innerHTML=`${n?n+', '+('es'===currentLang?'tu':'your'):('es'===currentLang?' Tu':' Your')} ${L.profile_label.split('·')[0].trim()}: <span>E${p} · DISC ${discPrimary||'?'}${discSecondary||''}</span>`;
   document.getElementById('profileDesc')?.remove();
 
   const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
   const maxScore=sorted[0][1];
 
-  // DISC score bars for profile page
   const discScores={D:0,I:0,S:0,C:0};
   DISC_Q.forEach((item,i)=>{discScores[item.letter]+=(discAnswers[i]||0);});
   const discSorted=Object.entries(discScores).sort((a,b)=>b[1]-a[1]);
@@ -1533,40 +1601,40 @@ function renderProfile(scores){
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;flex-wrap:wrap;">
       <div>
         <div class="ennea-type-num" style="margin-bottom:0;">${p}</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-soft);">Eneagrama</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-soft);">${L.profile_enneagram}</div>
       </div>
       <div style="font-size:28px;color:var(--border);font-weight:300;">·</div>
       <div>
         <div class="ennea-type-num" style="color:var(--dark);margin-bottom:0;">${discPrimary||'?'}${discSecondary||''}</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-soft);">DISC</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-soft);">${L.profile_disc}</div>
       </div>
     </div>
-    <div class="ennea-type-name">${data.name} · ${discPrimary?DISC_NAMES[discPrimary]:''}</div>
+    <div class="ennea-type-name">${data.name} · ${discPrimary?discNames[discPrimary]:''}</div>
     <div class="ennea-type-alias">${data.alias}</div>
     <div class="ennea-type-desc">${data.desc}</div>
   </div>
 
-  <button class="collapse-toggle" onclick="toggleScores(this)">▾ Ver puntajes detallados</button>
+  <button class="collapse-toggle" onclick="toggleScores(this)">${L.profile_scores_toggle_show}</button>
   <div class="collapse-body" id="scoresCollapse">
   <div class="result-cols" style="margin-bottom:16px;">
     <div class="ennea-scores-card" style="margin-bottom:0;">
-      <h3>Puntajes Eneagrama</h3>
-      ${sorted.map(([t,v])=>`
+      <h3>${L.profile_scores_ennea}</h3>
+      ${sorted.map(([t_,v])=>`
         <div class="ennea-score-row">
-          <div class="ennea-score-num" style="background:${ENNEA_TYPES[parseInt(t)].color};">${t}</div>
-          <div class="ennea-score-label" style="font-size:11px;">${ENNEA_TYPES[parseInt(t)].name}</div>
+          <div class="ennea-score-num" style="background:${types[parseInt(t_)].color};">${t_}</div>
+          <div class="ennea-score-label" style="font-size:11px;">${types[parseInt(t_)].name}</div>
           <div class="ennea-score-bar-bg" style="width:60px;">
-            <div class="ennea-score-bar-fill" style="width:${Math.round(v/maxScore*100)}%;background:${parseInt(t)===p?'var(--teal)':'var(--dark)'};"></div>
+            <div class="ennea-score-bar-fill" style="width:${Math.round(v/maxScore*100)}%;background:${parseInt(t_)===p?'var(--teal)':'var(--dark)'};"></div>
           </div>
-          <div class="ennea-score-val" style="color:${parseInt(t)===p?'var(--teal)':'var(--dark)'};">${v}</div>
+          <div class="ennea-score-val" style="color:${parseInt(t_)===p?'var(--teal)':'var(--dark)'};">${v}</div>
         </div>`).join('')}
     </div>
     <div class="ennea-scores-card" style="margin-bottom:0;">
-      <h3>Puntajes DISC</h3>
+      <h3>${L.profile_scores_disc}</h3>
       ${discSorted.map(([l,v])=>`
         <div class="ennea-score-row">
           <div class="ennea-score-num" style="background:${l===discPrimary?'var(--teal)':'var(--dark)'};font-family:Helvetica,sans-serif;">${l}</div>
-          <div class="ennea-score-label" style="font-size:11px;">${DISC_NAMES[l]}</div>
+          <div class="ennea-score-label" style="font-size:11px;">${discNames[l]}</div>
           <div class="ennea-score-bar-bg" style="width:60px;">
             <div class="ennea-score-bar-fill" style="width:${Math.round(v/8*100)}%;background:${l===discPrimary?'var(--teal)':'var(--dark)'};"></div>
           </div>
@@ -1577,17 +1645,17 @@ function renderProfile(scores){
   </div>
 
   <div class="wings-card">
-    <h4>🔗 Ala secundaria — Eneatipo ${s}: ${ENNEA_TYPES[s].name} · DISC secundario: ${discSecondary?DISC_NAMES[discSecondary]:''}</h4>
-    <p>${ENNEA_TYPES[s].alias}. Tu segunda tendencia complementa tu tipo principal y añade matices únicos a tu personalidad.</p>
+    <h4>${L.profile_wing} ${s}: ${types[s].name} · ${L.profile_wing_disc} ${discSecondary?discNames[discSecondary]:''}</h4>
+    <p>${types[s].alias}. ${L.profile_wing_complement}</p>
   </div>
 
   <div class="tips-card">
-    <h3>Fortalezas del Eneatipo ${p}</h3>
-    ${data.strengths.map(s=>`<div class="tip-item"><span class="tip-arrow">✦</span>${s}</div>`).join('')}
+    <h3>${L.profile_strengths} ${p}</h3>
+    ${data.strengths.map(st=>`<div class="tip-item"><span class="tip-arrow">✦</span>${st}</div>`).join('')}
   </div>
   <div class="tips-card">
-    <h3>Áreas de crecimiento para el Eneatipo ${p}</h3>
-    ${data.tips.map(t=>`<div class="tip-item"><span class="tip-arrow">→</span>${t}</div>`).join('')}
+    <h3>${L.profile_growth} ${p}</h3>
+    ${data.tips.map(tp=>`<div class="tip-item"><span class="tip-arrow">→</span>${tp}</div>`).join('')}
   </div>`;
 
   document.getElementById('profileContent').innerHTML=html;
@@ -1612,39 +1680,44 @@ function renderGiftsBlock(){
   const end = start + GIFTS_BLOCK_SIZE;
   const wrap = document.getElementById('giftsContainer');
   wrap.innerHTML = '';
+  const L = TRANSLATIONS[currentLang];
+  const scale = L.scale4;
+  const questions = currentLang==='en' ? GIFT_Q_EN : GIFT_Q;
 
-  GIFT_Q.slice(start, end).forEach((q, bi) => {
+  questions.slice(start, end).forEach((q, bi) => {
     const i = start + bi;
     const d = document.createElement('div');
     d.className = 'q-card';
     d.innerHTML = `
-      <div class="q-num">Pregunta ${i+1} de 72</div>
+      <div class="q-num">${L.motiv_q_prefix} ${i+1} ${currentLang==='en'?'of':'de'} 72</div>
       <div class="q-text">${q}</div>
       <div class="q-opts">
         ${[1,2,3,4].map((v,vi)=>`
           <div class="q-opt${giftAnswers[i]===v?' selected':''}" onclick="setGift(${i},${v},this)">
-            <span class="on">${v}</span>${GIFT_SCALE4[vi]}
+            <span class="on">${v}</span>${scale[vi]}
           </div>`).join('')}
       </div>`;
     wrap.appendChild(d);
   });
 
-  // Update block progress UI
   const blockDone = giftAnswers.slice(start, end).filter(a=>a!==null).length;
-  document.getElementById('giftsBlockCurrent').textContent = block + 1;
-  document.getElementById('giftsBlockTotal').textContent = GIFTS_BLOCK_SIZE;
-  document.getElementById('giftsCount').textContent = blockDone;
   const totalDone = giftAnswers.filter(a=>a!==null).length;
-  document.getElementById('giftsOverallProg').textContent = `${totalDone} de 72 en total`;
+
+  // Update block progress UI
+  const blockCurrent = document.getElementById('giftsBlockCurrent');
+  const blockTotal = document.getElementById('giftsBlockTotal');
+  if(blockCurrent) blockCurrent.textContent = block + 1;
+  if(blockTotal) blockTotal.textContent = GIFTS_BLOCK_SIZE;
+  document.getElementById('giftsCount').textContent = blockDone;
+
+  const overallProg = document.getElementById('giftsOverallProg');
+  if(overallProg) overallProg.textContent = `${totalDone} ${L.gifts_total_of}`;
   document.getElementById('giftsProg').style.width = (blockDone / GIFTS_BLOCK_SIZE * 100) + '%';
 
-  // Update button label
   const isLast = block === GIFTS_TOTAL_BLOCKS - 1;
   const nextBtn = document.getElementById('giftsNextBtn');
-  nextBtn.textContent = isLast ? 'VER MIS DONES →' : `BLOQUE ${block + 2} DE ${GIFTS_TOTAL_BLOCKS} →`;
+  nextBtn.textContent = isLast ? L.gifts_see_gifts : `${L.gifts_block_next} ${block + 2} ${L.gifts_block_of2} ${GIFTS_TOTAL_BLOCKS} →`;
   nextBtn.className = 'btn-primary' + (isLast ? ' btn-orange' : '');
-
-  // Back button
   document.getElementById('giftsBackBtn').style.display = '';
 }
 
@@ -1772,9 +1845,10 @@ function buildDisc1d(){
   const wrap=document.getElementById('discContainer');
   if(!wrap) return;
   wrap.innerHTML='';
-  // Group by letter for visual separation
+  const questions = currentLang==='en' ? DISC_Q_EN : DISC_Q;
+  const scale = TRANSLATIONS[currentLang].disc_scale;
   const groups={D:[],I:[],S:[],C:[]};
-  DISC_Q.forEach((item,i)=>groups[item.letter].push({...item,idx:i}));
+  questions.forEach((item,i)=>groups[item.letter].push({...item,idx:i}));
   Object.entries(groups).forEach(([letter,qs])=>{
     const groupDiv=document.createElement('div');
     groupDiv.style.cssText='margin-bottom:20px;';
@@ -1787,7 +1861,7 @@ function buildDisc1d(){
         <div class="q-opts">
           ${[1,2,3,4].map((v,vi)=>`
             <div class="q-opt${discAnswers[item.idx]===v?' selected':''}" onclick="setDisc1d(${item.idx},${v},this)">
-              <span class="on">${v}</span>${DISC_SCALE[vi]}
+              <span class="on">${v}</span>${scale[vi]}
             </div>`).join('')}
         </div>`;
       groupDiv.appendChild(d);
@@ -1843,10 +1917,12 @@ function computeDiscResult(){
 function buildDiscTiebreak(a,b,sorted){
   discTiebreakChoice=null;
   const wrap=document.getElementById('discTiebreakContainer');
-  // Show all 4 options for the tiebreak question
+  const L=TRANSLATIONS[currentLang];
+  const names=L.disc_names;
+  const descs=L.disc_descs;
   wrap.innerHTML=`
     <div style="background:rgba(0,186,188,0.06);border-left:3px solid var(--teal);padding:14px 16px;margin-bottom:20px;border-radius:0 4px 4px 0;font-size:13.5px;color:var(--text-body);line-height:1.65;">
-      En tu día a día, <strong style="color:var(--black)">¿qué te describe mejor?</strong>
+      ${L.disctb_q}
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       ${['D','I','S','C'].map(l=>`
@@ -1854,8 +1930,8 @@ function buildDiscTiebreak(a,b,sorted){
           <div class="motiv-top">
             <div class="motiv-num" style="background:var(--dark);font-size:16px;font-weight:800;width:32px;height:32px;">${l}</div>
             <div class="motiv-body">
-              <div class="motiv-title">${DISC_NAMES[l]}</div>
-              <div class="motiv-desc">${DISC_DESCS[l]}</div>
+              <div class="motiv-title">${names[l]}</div>
+              <div class="motiv-desc">${descs[l]}</div>
             </div>
             <div class="motiv-check">
               <svg viewBox="0 0 12 12" fill="none"><polyline points="1,6 4.5,9.5 11,2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1895,45 +1971,863 @@ function buildEnneaScores(){
 
 
 function toggleScores(btn){
+  const L=TRANSLATIONS[currentLang];
   const body = document.getElementById('scoresCollapse');
   const open = body.classList.toggle('open');
-  btn.textContent = open ? '▴ Ocultar puntajes detallados' : '▾ Ver puntajes detallados';
+  btn.textContent = open ? L.profile_scores_toggle_hide : L.profile_scores_toggle_show;
 }
 
 function shareResults(){
+  const L=TRANSLATIONS[currentLang];
+  const giftNamesL = currentLang==='en' ? GIFT_NAMES_EN : GIFT_NAMES;
+  const typesL = currentLang==='en' ? ENNEA_TYPES_EN : ENNEA_TYPES;
   const top5 = Object.entries(rawGiftScores).sort((a,b)=>b[1]-a[1]).slice(0,5);
   const topTeamName = document.querySelector('.team-card.rank-1 .team-name')?.textContent || '';
-  const text =
-`🌟 Mis resultados — Iglesia Northwood
-
-👤 ${userFullName}
-🧠 Eneatipo ${primaryType}: ${ENNEA_TYPES[primaryType]?.name||''}
-🎯 DISC: ${discPrimary||'?'}${discSecondary||''}
-
-🎁 Top 3 Dones Espirituales:
-${top5.slice(0,3).map(([k],i)=>`  ${i+1}. ${GIFT_NAMES[k]}`).join('\n')}
-
-⛪ Equipo recomendado: ${topTeamName}
-
-Descubre tu equipo en Iglesia Northwood ↗`;
-
+  const text = L.share_template(
+    userFullName,
+    {num:primaryType, name:typesL[primaryType]?.name||''},
+    `${discPrimary||'?'}${discSecondary||''}`,
+    giftNamesL[top5[0]?.[0]]||'',
+    giftNamesL[top5[1]?.[0]]||'',
+    giftNamesL[top5[2]?.[0]]||'',
+    topTeamName
+  );
+  const copyDone = () => {
+    document.getElementById('shareCopied').style.display='block';
+    setTimeout(()=>{ document.getElementById('shareCopied').style.display='none'; },3000);
+  };
   if(navigator.clipboard){
-    navigator.clipboard.writeText(text).then(()=>{
-      document.getElementById('shareCopied').style.display='block';
-      setTimeout(()=>{ document.getElementById('shareCopied').style.display='none'; },3000);
-    });
+    navigator.clipboard.writeText(text).then(copyDone);
   } else {
-    // Fallback
     const ta=document.createElement('textarea');
     ta.value=text; document.body.appendChild(ta); ta.select();
     document.execCommand('copy'); document.body.removeChild(ta);
-    document.getElementById('shareCopied').style.display='block';
-    setTimeout(()=>{ document.getElementById('shareCopied').style.display='none'; },3000);
+    copyDone();
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// i18n — BILINGUAL SYSTEM (ES / EN)
+// ═══════════════════════════════════════════════════════
+let currentLang = (navigator.language||'es').startsWith('en') ? 'en' : 'es';
+
+const TRANSLATIONS = {
+  es: {
+    page_title:'Descubre Tu Equipo – Iglesia Northwood',
+    header_h1:'Descubre Tu',
+    header_h1_span:'Equipo Ideal',
+    header_sub:'Completa la evaluación para encontrar el ministerio donde Dios te diseñó para servir.',
+    prog_start:'Inicio', prog_ennea:'Eneagrama', prog_profile:'Tu Perfil', prog_gifts:'Dones', prog_results:'Resultados',
+    footer_tagline:'Ilumina tu comunidad',
+    // Name screen
+    name_label:'Iglesia Northwood · Eneagrama',
+    name_title:'¡Bienvenido/a!', name_title_span:'¿Cómo te llamas?',
+    name_desc:'Tu nombre nos ayuda a personalizar la experiencia a lo largo de la evaluación.',
+    name_verse:'"Porque somos hechura de Dios, creados en Cristo Jesús para buenas obras, las cuales Dios dispuso de antemano a fin de que las pongamos en práctica."',
+    name_verse_ref:'Efesios 2:10',
+    name_first_lbl:'Nombre', name_first_ph:'Ej. María',
+    name_last_lbl:'Apellido', name_last_ph:'Ej. González',
+    name_val:'Por favor ingresa tu nombre antes de continuar.',
+    save_code_title:'¿Tienes un código de progreso guardado?',
+    save_code_warning:'⚠️ El código solo funciona en este mismo dispositivo y navegador donde lo generaste. No funciona si cambias de celular, computadora o navegador.',
+    resume_ph:'XXXX', resume_btn:'RETOMAR →',
+    resume_ok:'✓ Progreso restaurado correctamente.',
+    resume_err_len:'El código debe tener 4 caracteres.',
+    resume_err_notfound:'Código no encontrado. Verifica e intenta de nuevo.',
+    resume_err_fail:'Error al restaurar. Intenta de nuevo.',
+    btn_start:'COMENZAR →', btn_loading:'CARGANDO EQUIPOS…',
+    // Intro screen
+    intro_label:'Bienvenido/a · Iglesia Northwood',
+    intro_title:'Diseño revela', intro_title_span:'destino',
+    intro_how:'Cómo funciona',
+    step1_title:'Evaluación del Eneagrama (54 preguntas + 9 de motivación)',
+    step1_sub:'Escala de 4 opciones, sin centro neutro ·',
+    step2_title:'Evaluación DISC (8 preguntas)',
+    step2_sub:'Tu estilo natural de comportamiento ·',
+    step3_title:'Lee tu perfil de personalidad',
+    step3_sub:'Tu eneatipo predominante y estilo DISC ·',
+    step4_title:'Evaluación de Dones Espirituales (72 preguntas)',
+    step4_sub:'Escala de 4 opciones + priorización al final ·',
+    step5_title:'Resultados personalizados',
+    step5_sub:'Tus equipos de Northwood más compatibles ·',
+    time_instant:'inmediato', btn_begin:'COMENZAR →',
+    // Ennea screen
+    ennea_label:'Paso 1 · Eneagrama',
+    ennea_title:'Evaluación del', ennea_title_span:'Eneagrama',
+    ennea_desc:'Responde según cómo eres <strong style="color:var(--black)">la mayor parte de tu vida</strong>, no cómo quisieras ser.',
+    ennea_prog:'Progreso', ennea_of:'respondidas',
+    ennea_val:'Por favor responde todas las preguntas antes de continuar.',
+    btn_back:'← ATRÁS', btn_continue:'CONTINUAR →',
+    // Motivation screen
+    motiv_label:'Paso 1 · Preguntas de Motivación',
+    motiv_title:'¿Qué te', motiv_title_span:'mueve?',
+    motiv_desc:'El eneagrama se basa en motivaciones más que en comportamientos. Estas preguntas afinan tu perfil.',
+    motiv_q_prefix:'Pregunta', motiv_q_of:'de 9',
+    motiv_val:'Por favor responde todas las preguntas antes de continuar.',
+    btn_see_profile:'VER MI PERFIL →',
+    // Tiebreak screen
+    tiebreak_label:'Una pregunta más',
+    tiebreak_title:'Dos tipos muy', tiebreak_title_span:'parejos',
+    tiebreak_desc:'Tus puntajes en estos dos eneatipos están muy cercanos. Lee ambas descripciones y elige la que sientas que te describe mejor <strong style="color:var(--black)">en la mayoría de los momentos de tu vida.</strong>',
+    tiebreak_val:'Por favor selecciona una opción para continuar.',
+    // DISC screen
+    disc_label:'Paso 1 · Estilo de Comportamiento',
+    disc_title:'¿Cómo', disc_title_span:'actúas?',
+    disc_desc:'8 preguntas rápidas sobre tu estilo natural de comportamiento. Responde según cómo eres normalmente, no según cómo crees que deberías ser.',
+    disc_val:'Por favor responde todas las preguntas antes de continuar.',
+    // DISC tiebreak
+    disctb_label:'Una última pregunta',
+    disctb_title:'Estilo muy', disctb_title_span:'equilibrado',
+    disctb_desc:'Tus estilos de comportamiento están muy parejos. ¿Cuál de estos te describe mejor en tu día a día?',
+    disctb_val:'Por favor selecciona una opción para continuar.',
+    disctb_q:'En tu día a día, <strong style="color:var(--black)">¿qué te describe mejor?</strong>',
+    // Profile screen
+    profile_label:'Tu Perfil del Eneagrama',
+    profile_desc:'Así es como Dios te diseñó. Estas fortalezas son exactamente lo que el equipo correcto necesita.',
+    profile_enneagram:'Eneagrama', profile_disc:'DISC',
+    profile_scores_toggle_show:'▾ Ver puntajes detallados',
+    profile_scores_toggle_hide:'▴ Ocultar puntajes detallados',
+    profile_scores_ennea:'Puntajes Eneagrama',
+    profile_scores_disc:'Puntajes DISC',
+    profile_wing:'🔗 Ala secundaria — Eneatipo',
+    profile_wing_disc:'DISC secundario:',
+    profile_wing_complement:'Tu segunda tendencia complementa tu tipo principal y añade matices únicos a tu personalidad.',
+    profile_strengths:'Fortalezas del Eneatipo',
+    profile_growth:'Áreas de crecimiento para el Eneatipo',
+    btn_gifts:'DONES ESPIRITUALES →',
+    // Gifts screen
+    gifts_label:'Paso 2 · Dones Espirituales',
+    gifts_title:'Evaluación de', gifts_title_span:'Dones Espirituales',
+    gifts_desc:'Lee cada afirmación y selecciona con qué frecuencia te describe.',
+    gifts_block_of:'de', gifts_responded:'respondidas', gifts_total_of:'de 72 en total',
+    gifts_val:'Por favor responde todas las preguntas de este bloque antes de continuar.',
+    gifts_block_next:'BLOQUE', gifts_block_of2:'DE',
+    gifts_see_gifts:'VER MIS DONES →',
+    // Gift sort
+    giftsort_label:'Priorización de Dones',
+    giftsort_title:'¿En cuál área te usa', giftsort_title_span:'más Dios?',
+    giftsort_intro:'Estos son tus dones con mayor puntaje. Usa las flechas <strong style="color:var(--black)">↑ ↓</strong> para ordenarlos del que más fluye naturalmente en ti (arriba) al que menos (abajo).',
+    btn_results:'VER MIS RESULTADOS →',
+    // Results
+    results_label_prefix:'Resultados de',
+    results_label_suffix:'· Iglesia Northwood',
+    results_hero_main_gift:'tu don principal es:',
+    results_enneaType:'Eneatipo', results_disc:'DISC', results_gift1:'Don #1',
+    results_topgifts:'Top 5 Dones Espirituales de',
+    results_orphan_title:'🌟 Don sin equipo asignado',
+    results_orphan_body:'tu don de', results_orphan_suffix:'es poderoso y merece ser canalizado. Habla con un líder de Northwood sobre cómo usar este don — puede que estemos por iniciar un equipo que lo necesite.',
+    results_teams_label:'Equipos Compatibles',
+    results_teams_title:'estos son tus ministerios', results_teams_title_span:'ideales',
+    results_rank:['✦ MEJOR COINCIDENCIA','2ª OPCIÓN','3ª OPCIÓN','4ª OPCIÓN'],
+    results_match:'MATCH',
+    results_verse:'"Dios, de su gran variedad de dones espirituales, les ha dado un don a cada uno de ustedes. Úsenlos bien para servirse los unos a los otros."',
+    results_verse_ref:'1 Pedro 4:10',
+    results_cta_title:'¿Qué sigue,',
+    results_cta_body:'Comparte tus resultados con un líder de Iglesia Northwood y da el siguiente paso para unirte al equipo donde Dios te diseñó para servir.',
+    results_qr_title:'Código QR de tus resultados',
+    results_qr_hint:'Muéstrale este QR a un líder para que vea tu perfil completo.',
+    results_export_title:'Guarda o comparte tus resultados',
+    results_share_btn:'Copiar para compartir (WhatsApp / Email)',
+    results_share_copied:'✓ ¡Copiado! Pégalo en WhatsApp o donde quieras.',
+    results_pdf:'Bajar como PDF',
+    results_email_btn:'Enviar por Email',
+    results_save_title:'Tu código de progreso',
+    results_save_hint:'Guarda este código para retomar en este mismo dispositivo y navegador.',
+    results_save_warning:'⚠️ No funcionará si cambias de dispositivo, navegador o borras el caché.',
+    btn_restart:'↺ Hacer la evaluación de nuevo',
+    // Email modal
+    modal_title:'Enviar Resultados por Email',
+    modal_desc:'Completa los datos y se abrirá tu aplicación de correo con los resultados.',
+    modal_name_lbl:'Tu nombre', modal_name_ph:'Ej. María González',
+    modal_email_lbl:'Email del destinatario', modal_email_ph:'lider@iglesianorthwood.com',
+    modal_note_lbl:'Mensaje adicional (opcional)', modal_note_ph:'Me gustaría saber más sobre cómo unirme al equipo...',
+    modal_cancel:'CANCELAR', modal_send:'ABRIR CORREO →',
+    // Scale labels
+    scale4:['Casi\nnunca','Rara\nvez','Con\nfrecuencia','Casi\nsiempre'],
+    disc_scale:['Casi\nnunca','Rara\nvez','Con\nfrecuencia','Muy\ncierto'],
+    // DISC names
+    disc_names:{D:'Dominante',I:'Influyente',S:'Estable',C:'Concienzudo/a'},
+    disc_descs:{
+      D:'Directo, decidido, orientado a resultados. Tomas la iniciativa y no temes el conflicto.',
+      I:'Entusiasta, sociable, optimista. Conectas fácilmente con personas y las motivas.',
+      S:'Confiable, paciente, constante. Eres el apoyo del equipo y valoras la armonía.',
+      C:'Preciso, analítico, detallista. Buscas calidad y exactitud en todo lo que haces.'
+    },
+    // Share text template
+    share_template:(name,e,disc,g1,g2,g3,team)=>
+`🌟 Mis resultados — Iglesia Northwood\n\n👤 ${name}\n🧠 Eneatipo ${e.num}: ${e.name}\n🎯 DISC: ${disc}\n\n🎁 Top 3 Dones Espirituales:\n  1. ${g1}\n  2. ${g2}\n  3. ${g3}\n\n⛪ Equipo recomendado: ${team}\n\nDescubre tu equipo en Iglesia Northwood ↗`,
+    // Email subject/body
+    email_subject:(name)=>`Resultados Eneagrama – ${name} | Iglesia Northwood`,
+    email_profile_hdr:'PERFIL DEL ENEAGRAMA',
+    email_primary:'Eneatipo Principal:', email_secondary:'Ala Secundaria:',
+    email_gifts_hdr:'TOP 5 DONES ESPIRITUALES',
+    email_priority:'Orden de prioridad:',
+    email_msg_hdr:'MENSAJE',
+    email_footer:'Iglesia Northwood · Ilumina tu comunidad',
+    // Why explanations
+    why_gift:'Tu don de', why_gift_suffix:'es una necesidad real en este equipo',
+    why_disc:'tu estilo', why_disc_suffix:'encaja con la dinámica del equipo',
+    why_ennea:'tu Eneatipo', why_ennea_suffix:'aporta exactamente lo que necesitan',
+    why_default:'Tus dones complementan bien las necesidades de este equipo.',
+    // Sheets banner
+    banner_loading:'Cargando equipos de servicio en Northwood…',
+    banner_warn:'No se pudo conectar — usando equipos guardados localmente.',
+    banner_retry:'↺ Reintentar',
+  },
+  en: {
+    page_title:'Discover Your Team – Iglesia Northwood',
+    header_h1:'Discover Your',
+    header_h1_span:'Ideal Team',
+    header_sub:'Complete the assessment to find the ministry where God designed you to serve.',
+    prog_start:'Start', prog_ennea:'Enneagram', prog_profile:'Your Profile', prog_gifts:'Gifts', prog_results:'Results',
+    footer_tagline:'Illuminate your community',
+    // Name screen
+    name_label:'Iglesia Northwood · Enneagram',
+    name_title:'Welcome!', name_title_span:'What\'s your name?',
+    name_desc:'Your name helps us personalize your experience throughout the assessment.',
+    name_verse:'"For we are God\'s handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do."',
+    name_verse_ref:'Ephesians 2:10',
+    name_first_lbl:'First Name', name_first_ph:'e.g. Maria',
+    name_last_lbl:'Last Name', name_last_ph:'e.g. Gonzalez',
+    name_val:'Please enter your name before continuing.',
+    save_code_title:'Do you have a saved progress code?',
+    save_code_warning:'⚠️ The code only works on the same device and browser where it was generated. It won\'t work if you switch devices, computers, or browsers.',
+    resume_ph:'XXXX', resume_btn:'RESUME →',
+    resume_ok:'✓ Progress restored successfully.',
+    resume_err_len:'The code must be 4 characters.',
+    resume_err_notfound:'Code not found. Please check and try again.',
+    resume_err_fail:'Restore error. Please try again.',
+    btn_start:'START →', btn_loading:'LOADING TEAMS…',
+    // Intro screen
+    intro_label:'Welcome · Iglesia Northwood',
+    intro_title:'Design reveals', intro_title_span:'destiny',
+    intro_how:'How it works',
+    step1_title:'Enneagram Assessment (54 questions + 9 motivation)',
+    step1_sub:'4-option scale, no neutral center ·',
+    step2_title:'DISC Assessment (8 questions)',
+    step2_sub:'Your natural behavioral style ·',
+    step3_title:'Read your personality profile',
+    step3_sub:'Your dominant Enneagram type and DISC style ·',
+    step4_title:'Spiritual Gifts Assessment (72 questions)',
+    step4_sub:'4-option scale + prioritization at the end ·',
+    step5_title:'Personalized results',
+    step5_sub:'Your most compatible Northwood ministry teams ·',
+    time_instant:'instant', btn_begin:'GET STARTED →',
+    // Ennea screen
+    ennea_label:'Step 1 · Enneagram',
+    ennea_title:'Enneagram', ennea_title_span:'Assessment',
+    ennea_desc:'Answer based on how you are <strong style="color:var(--black)">most of your life</strong>, not how you wish you were.',
+    ennea_prog:'Progress', ennea_of:'answered',
+    ennea_val:'Please answer all questions before continuing.',
+    btn_back:'← BACK', btn_continue:'CONTINUE →',
+    // Motivation screen
+    motiv_label:'Step 1 · Motivation Questions',
+    motiv_title:'What', motiv_title_span:'drives you?',
+    motiv_desc:'The Enneagram is based on motivations more than behaviors. These questions refine your profile.',
+    motiv_q_prefix:'Question', motiv_q_of:'of 9',
+    motiv_val:'Please answer all questions before continuing.',
+    btn_see_profile:'SEE MY PROFILE →',
+    // Tiebreak screen
+    tiebreak_label:'One more question',
+    tiebreak_title:'Two very', tiebreak_title_span:'close types',
+    tiebreak_desc:'Your scores on these two Enneagram types are very close. Read both descriptions and choose the one that best describes you <strong style="color:var(--black)">in most moments of your life.</strong>',
+    tiebreak_val:'Please select an option to continue.',
+    // DISC screen
+    disc_label:'Step 1 · Behavioral Style',
+    disc_title:'How do', disc_title_span:'you act?',
+    disc_desc:'8 quick questions about your natural behavioral style. Answer based on how you normally are, not how you think you should be.',
+    disc_val:'Please answer all questions before continuing.',
+    // DISC tiebreak
+    disctb_label:'One last question',
+    disctb_title:'Very', disctb_title_span:'balanced style',
+    disctb_desc:'Your behavioral styles are very close. Which of these best describes you in your day-to-day life?',
+    disctb_val:'Please select an option to continue.',
+    disctb_q:'In your day-to-day life, <strong style="color:var(--black)">which best describes you?</strong>',
+    // Profile screen
+    profile_label:'Your Enneagram Profile',
+    profile_desc:'This is how God designed you. These strengths are exactly what the right team needs.',
+    profile_enneagram:'Enneagram', profile_disc:'DISC',
+    profile_scores_toggle_show:'▾ View detailed scores',
+    profile_scores_toggle_hide:'▴ Hide detailed scores',
+    profile_scores_ennea:'Enneagram Scores',
+    profile_scores_disc:'DISC Scores',
+    profile_wing:'🔗 Secondary wing — Enneagram Type',
+    profile_wing_disc:'Secondary DISC:',
+    profile_wing_complement:'Your secondary tendency complements your main type and adds unique nuances to your personality.',
+    profile_strengths:'Strengths of Enneagram Type',
+    profile_growth:'Growth areas for Enneagram Type',
+    btn_gifts:'SPIRITUAL GIFTS →',
+    // Gifts screen
+    gifts_label:'Step 2 · Spiritual Gifts',
+    gifts_title:'Spiritual Gifts', gifts_title_span:'Assessment',
+    gifts_desc:'Read each statement and select how often it describes you.',
+    gifts_block_of:'of', gifts_responded:'answered', gifts_total_of:'of 72 total',
+    gifts_val:'Please answer all questions in this block before continuing.',
+    gifts_block_next:'BLOCK', gifts_block_of2:'OF',
+    gifts_see_gifts:'SEE MY GIFTS →',
+    // Gift sort
+    giftsort_label:'Gift Prioritization',
+    giftsort_title:'In which area does', giftsort_title_span:'God use you most?',
+    giftsort_intro:'These are your highest-scoring gifts. Use the <strong style="color:var(--black)">↑ ↓</strong> arrows to rank them from the one that flows most naturally in you (top) to the least (bottom).',
+    btn_results:'SEE MY RESULTS →',
+    // Results
+    results_label_prefix:'Results for',
+    results_label_suffix:'· Iglesia Northwood',
+    results_hero_main_gift:'your top gift is:',
+    results_enneaType:'Enneagram Type', results_disc:'DISC', results_gift1:'Top Gift',
+    results_topgifts:'Top 5 Spiritual Gifts for',
+    results_orphan_title:'🌟 Unassigned Gift',
+    results_orphan_body:'your gift of', results_orphan_suffix:'is powerful and deserves to be channeled. Talk to a Northwood leader about how to use this gift — we may be starting a team that needs it.',
+    results_teams_label:'Compatible Teams',
+    results_teams_title:'these are your', results_teams_title_span:'ideal ministries',
+    results_rank:['✦ BEST MATCH','2ND OPTION','3RD OPTION','4TH OPTION'],
+    results_match:'MATCH',
+    results_verse:'"God has given each of you a gift from his great variety of spiritual gifts. Use them well to serve one another."',
+    results_verse_ref:'1 Peter 4:10',
+    results_cta_title:'What\'s next,',
+    results_cta_body:'Share your results with an Iglesia Northwood leader and take the next step to join the team where God designed you to serve.',
+    results_qr_title:'QR Code for your results',
+    results_qr_hint:'Show this QR to a leader so they can see your full profile.',
+    results_export_title:'Save or share your results',
+    results_share_btn:'Copy to share (WhatsApp / Email)',
+    results_share_copied:'✓ Copied! Paste it in WhatsApp or anywhere you like.',
+    results_pdf:'Download as PDF',
+    results_email_btn:'Send by Email',
+    results_save_title:'Your progress code',
+    results_save_hint:'Save this code to resume on this same device and browser.',
+    results_save_warning:'⚠️ It won\'t work if you switch devices, browsers, or clear your cache.',
+    btn_restart:'↺ Retake the assessment',
+    // Email modal
+    modal_title:'Send Results by Email',
+    modal_desc:'Fill in the details and your email app will open with your results.',
+    modal_name_lbl:'Your name', modal_name_ph:'e.g. Maria Gonzalez',
+    modal_email_lbl:'Recipient email', modal_email_ph:'leader@iglesianorthwood.com',
+    modal_note_lbl:'Additional message (optional)', modal_note_ph:'I\'d like to learn more about joining the team...',
+    modal_cancel:'CANCEL', modal_send:'OPEN EMAIL →',
+    // Scale labels
+    scale4:['Almost\nnever','Rarely','Often','Almost\nalways'],
+    disc_scale:['Almost\nnever','Rarely','Often','Very\ntrue'],
+    // DISC names
+    disc_names:{D:'Dominant',I:'Influential',S:'Stable',C:'Conscientious'},
+    disc_descs:{
+      D:'Direct, decisive, results-oriented. You take initiative and don\'t fear conflict.',
+      I:'Enthusiastic, sociable, optimistic. You connect easily with people and motivate them.',
+      S:'Reliable, patient, steady. You are the team\'s support and value harmony.',
+      C:'Precise, analytical, detail-oriented. You seek quality and accuracy in everything you do.'
+    },
+    // Share text template
+    share_template:(name,e,disc,g1,g2,g3,team)=>
+`🌟 My results — Iglesia Northwood\n\n👤 ${name}\n🧠 Enneagram Type ${e.num}: ${e.name}\n🎯 DISC: ${disc}\n\n🎁 Top 3 Spiritual Gifts:\n  1. ${g1}\n  2. ${g2}\n  3. ${g3}\n\n⛪ Recommended team: ${team}\n\nDiscover your team at Iglesia Northwood ↗`,
+    // Email
+    email_subject:(name)=>`Enneagram Results – ${name} | Iglesia Northwood`,
+    email_profile_hdr:'ENNEAGRAM PROFILE',
+    email_primary:'Primary Type:', email_secondary:'Secondary Wing:',
+    email_gifts_hdr:'TOP 5 SPIRITUAL GIFTS',
+    email_priority:'Priority order:',
+    email_msg_hdr:'MESSAGE',
+    email_footer:'Iglesia Northwood · Illuminate your community',
+    // Why explanations
+    why_gift:'Your gift of', why_gift_suffix:'is a real need on this team',
+    why_disc:'your', why_disc_suffix:'style fits the team dynamic',
+    why_ennea:'your Enneagram Type', why_ennea_suffix:'brings exactly what they need',
+    why_default:'Your gifts complement this team\'s needs well.',
+    // Sheets banner
+    banner_loading:'Loading Northwood ministry teams…',
+    banner_warn:'Could not connect — using locally saved teams.',
+    banner_retry:'↺ Retry',
+  }
+};
+
+// Enneagram types in English
+const ENNEA_TYPES_EN = {
+  1:{name:'The Reformer',alias:'Rational, Idealistic, Principled',
+     desc:'You are a person of solid principles with a strong sense of right and wrong. You have a genuine desire to improve the world and strive to act with integrity. You are organized, responsible, and disciplined. In ministry, you bring excellence, structure, and a deep commitment to truth.',
+     strengths:['Solid integrity and ethics','Attention to detail and quality','Ability to improve systems and processes'],
+     tips:['Practice grace with yourself and others','Accept that imperfection is part of being human','Learn to rest without feeling guilty']},
+  2:{name:'The Helper',alias:'Generous, Demonstrative, People-Oriented',
+     desc:'You are a warm, empathetic person oriented toward relationships. You have a natural ability to perceive others\' needs and act to meet them. Your greatest joy is knowing you\'ve made a difference. In ministry, you are the heart of the team: you create connection, welcome people, and care for them with genuine love.',
+     strengths:['Deep empathy and genuine warmth','Ability to make people feel loved','Willingness to serve without expecting recognition'],
+     tips:['Learn to receive help too','Set healthy boundaries without guilt','Connect with your own needs']},
+  3:{name:'The Achiever',alias:'Pragmatic, Adaptable, Success-Oriented',
+     desc:'You are a focused, efficient person oriented toward results. You have a great ability to adapt and project confidence. In ministry, you inspire others to reach their potential and are excellent at organizing initiatives with visible, measurable impact.',
+     strengths:['Clear vision of goals and how to reach them','Great ability to motivate by example','Ability to make things happen'],
+     tips:['Connect with your deeper emotions','Value being over doing','Allow others to know you beyond your achievements']},
+  4:{name:'The Individualist',alias:'Expressive, Authentic, Creative',
+     desc:'You are a creative, deep, and authentic person who seeks meaning in everything. You have a special sensitivity to beauty and human pain. In ministry, you bring a unique spiritual and artistic dimension ideal for worship, photography, and creative teams.',
+     strengths:['Deep artistic creativity and sensitivity','Authenticity that inspires others to be real','Connection with the emotional and spiritual world'],
+     tips:['Find stability in daily consistency','Avoid excessive self-absorption','Celebrate the ordinary as also sacred']},
+  5:{name:'The Investigator',alias:'Perceptive, Innovative, Reserved',
+     desc:'You are an analytical, intelligent, and deeply curious person. You need to understand how everything works before acting. In ministry, you are invaluable in roles requiring research, deep teaching, technical planning, or complex problem-solving.',
+     strengths:['Analytical thinking and ability to research deeply','Independence and innovation in problem-solving','Deep knowledge of the topics you study'],
+     tips:['Share more of your knowledge with others','Participate actively even when you don\'t feel "ready"','Connect ideas with people and emotions']},
+  6:{name:'The Loyalist',alias:'Committed, Responsible, Security-Oriented',
+     desc:'You are a reliable, responsible, and deeply committed person. You are the team\'s glue: everyone can always count on you. In ministry, you are the anchor — constant, faithful, and always present when most needed.',
+     strengths:['Unwavering loyalty and commitment','Ability to anticipate and prevent problems','Long-term solidarity and support'],
+     tips:['Trust your own judgment more','Practice active faith in the face of uncertainty','Distinguish between healthy caution and anxiety']},
+  7:{name:'The Enthusiast',alias:'Spontaneous, Versatile, Positive',
+     desc:'You are a person full of life, creativity, and contagious enthusiasm. You have a positive vision that inspires everyone. In ministry, you are perfect for welcome teams, evangelism, events, and any role requiring energy and spontaneity.',
+     strengths:['Enthusiasm and energy that inspire others','Creativity to imagine new possibilities','Ability to make things fun and exciting'],
+     tips:['Develop long-term commitment','Face difficulties instead of avoiding them','Go deeper rather than just wider']},
+  8:{name:'The Challenger',alias:'Powerful, Decisive, Protective',
+     desc:'You are a strong, direct, and protective person who does not fear leading or making difficult decisions. Your heart is passionate about justice. In ministry, you are a natural leader who can move teams and create structure where there is chaos.',
+     strengths:['Natural leadership and ability to make tough decisions','Courage to stand up for justice','Presence and energy that move people to action'],
+     tips:['Develop vulnerability and tenderness','Listen before acting','Use strength in service of others, not control']},
+  9:{name:'The Peacemaker',alias:'Receptive, Reassuring, Harmonious',
+     desc:'You are a calm, generous person with a unique ability to make everyone feel welcome. You see multiple angles of every situation. In ministry, you are essential for creating environments where everyone feels seen and valued.',
+     strengths:['Ability to create harmony and a sense of belonging','Patience and stability that calm others','Skill in mediating and seeing multiple perspectives'],
+     tips:['Identify and express your own opinions with confidence','Avoid postponing important decisions','Recognize that your presence and voice also matter']}
+};
+
+// Spiritual Gift names in English
+const GIFT_NAMES_EN = {
+  A:'Administration',B:'Apostleship',C:'Craftsmanship',D:'Discernment',E:'Evangelism',
+  F:'Exhortation',G:'Faith',H:'Giving',I:'Healing',J:'Helps',K:'Hospitality',
+  L:'Intercession',M:'Knowledge',N:'Leadership',O:'Mercy',P:'Miracles',
+  Q:'Missionary',R:'Music / Worship',S:'Shepherding',T:'Prophecy',U:'Service',
+  V:'Teaching',W:'Tongues & Interpretation',X:'Wisdom'
+};
+
+// Enneagram questions in English
+const ENNEA_Q_EN = [
+  {t:1,q:"I am a principled person who has a clear sense of right and wrong."},
+  {t:1,q:"I work hard to do things perfectly and get frustrated when others don't."},
+  {t:1,q:"I have an inner critical voice that constantly points out my mistakes and others'."},
+  {t:1,q:"I find it hard to relax; there's always something to improve or correct."},
+  {t:1,q:"Responsibility and integrity are core values in my life."},
+  {t:1,q:"Injustice outrages me and I feel I must do something about it."},
+  {t:2,q:"I am very attentive to others' needs and enjoy helping people."},
+  {t:2,q:"I find it difficult to say no when someone asks me for help."},
+  {t:2,q:"I need to feel loved and appreciated by the people who matter to me."},
+  {t:2,q:"I take pride in being the person others turn to when they have problems."},
+  {t:2,q:"Sometimes I forget my own needs because I'm busy taking care of others."},
+  {t:2,q:"Personal relationships are the most important thing in my life."},
+  {t:3,q:"I am very results-oriented and like to set high goals."},
+  {t:3,q:"I care a lot about the image I project to others and visible success."},
+  {t:3,q:"I am adaptable and can present myself in different ways depending on the situation."},
+  {t:3,q:"I am motivated by standing out and being recognized for my achievements."},
+  {t:3,q:"I work efficiently and don't like to waste time."},
+  {t:3,q:"I sometimes wonder if people love me for who I am or for what I achieve."},
+  {t:4,q:"I feel different from others and seek an authentic, unique identity."},
+  {t:4,q:"I have intense, deep emotions that sometimes overwhelm me."},
+  {t:4,q:"I am very creative and appreciate beauty, art, and personal expression."},
+  {t:4,q:"I sometimes feel that something essential is missing or that I don't fully belong anywhere."},
+  {t:4,q:"I value depth in relationships and am not interested in superficial conversations."},
+  {t:4,q:"I tend to romanticize the past or imagine an ideal life I don't yet have."},
+  {t:5,q:"I need my own time and space to recharge and think clearly."},
+  {t:5,q:"I prefer to observe and analyze before participating or getting involved."},
+  {t:5,q:"I seek deep knowledge and understanding of topics that interest me."},
+  {t:5,q:"I find it difficult to share my resources — time, energy, and personal space."},
+  {t:5,q:"I feel more comfortable with ideas and concepts than with intense emotions."},
+  {t:5,q:"I guard my privacy closely and don't easily share my inner thoughts."},
+  {t:6,q:"I constantly think about possible problems or risks in a situation."},
+  {t:6,q:"I need to feel safe and be able to count on the support of trusted people or groups."},
+  {t:6,q:"I tend to question the motives of authorities or doubt whether I can trust them."},
+  {t:6,q:"I am loyal and committed to the people and causes I believe in."},
+  {t:6,q:"I sometimes second-guess my own decisions and seek the opinion of trusted people."},
+  {t:6,q:"I anticipate what could go wrong so I'm prepared."},
+  {t:7,q:"I am an enthusiastic person who enjoys new experiences and adventures."},
+  {t:7,q:"I get bored easily with routine and constantly seek new stimulation."},
+  {t:7,q:"I am optimistic and tend to see the bright side of situations."},
+  {t:7,q:"I find it hard to stay committed when something stops being interesting or enjoyable."},
+  {t:7,q:"I have many plans and ideas at once and enjoy dreaming big."},
+  {t:7,q:"I avoid or postpone facing painful or limiting situations."},
+  {t:8,q:"I am a direct and intense person who doesn't like being told what to do."},
+  {t:8,q:"I take control of situations easily and don't fear conflict."},
+  {t:8,q:"I protect the people I care about and don't tolerate injustice or abuse of power."},
+  {t:8,q:"I am bothered by weakness and indecisiveness, both in myself and others."},
+  {t:8,q:"I express my opinions directly, even if it sometimes comes across as intimidating."},
+  {t:8,q:"I have a strong energy and presence that others notice from the first moment."},
+  {t:9,q:"I avoid conflict and prefer to give in to maintain peace and harmony."},
+  {t:9,q:"I find it hard to make decisions or prioritize my own needs."},
+  {t:9,q:"I am a calm, stable person who makes others feel comfortable."},
+  {t:9,q:"I sometimes get lost in secondary activities and postpone the most important things."},
+  {t:9,q:"I easily identify with others' points of view and can see all angles."},
+  {t:9,q:"I feel that my presence and opinions don't matter as much as others'."}
+];
+
+// Motivation questions in English
+const MOTIV_Q_EN = [
+  {q:"When I make a mistake, my most immediate reaction is…",opts:[
+    {t:1,text:"Feeling bad and wanting to correct it immediately so I don't repeat it."},
+    {t:9,text:"Downplaying it and moving on to maintain calm."},
+    {t:4,text:"Analyzing it deeply and asking what it says about me."},
+    {t:7,text:"Learning from it quickly and already thinking about what comes next."}
+  ]},
+  {q:"On a team, my natural role is…",opts:[
+    {t:3,text:"The one who drives results and makes things happen."},
+    {t:2,text:"The one who takes care of the team and makes sure everyone is okay."},
+    {t:5,text:"The one who analyzes, researches, and brings the most thoughtful perspective."},
+    {t:8,text:"The one who makes tough decisions when no one else dares."}
+  ]},
+  {q:"What I struggle with most in close relationships is…",opts:[
+    {t:5,text:"Opening up emotionally and sharing what I really think and feel."},
+    {t:2,text:"Putting my own needs first without feeling selfish."},
+    {t:8,text:"Showing vulnerability or tenderness without feeling exposed."},
+    {t:1,text:"Accepting that others do things differently from me."}
+  ]},
+  {q:"My greatest motivation when serving or helping others is…",opts:[
+    {t:2,text:"Feeling that I matter to others and that they need me."},
+    {t:1,text:"Doing the right thing and contributing to making the world better."},
+    {t:6,text:"Being part of something bigger and feeling I belong to the group."},
+    {t:9,text:"Bringing peace and harmony, and making everyone feel included."}
+  ]},
+  {q:"When I have to make an important decision, what holds me back most is…",opts:[
+    {t:6,text:"Fear of being wrong and the consequences it could bring."},
+    {t:9,text:"Not wanting to disappoint you or anyone with my choice."},
+    {t:4,text:"The feeling that no option truly captures what I want."},
+    {t:3,text:"The pressure to make the decision that positions me best in others' eyes."}
+  ]},
+  {q:"If I could describe my deepest fear, it would be…",opts:[
+    {t:1,text:"Being flawed, corrupt, or never being good enough."},
+    {t:2,text:"Not being loved or needed by anyone."},
+    {t:3,text:"Being worthless apart from my achievements and no one loving me for who I am."},
+    {t:4,text:"Not having my own identity and being too ordinary."}
+  ]},
+  {q:"When I sense something is wrong, my tendency is to…",opts:[
+    {t:8,text:"Confront it directly and resolve the problem without beating around the bush."},
+    {t:5,text:"Withdraw to analyze the situation before acting."},
+    {t:7,text:"Find a distraction or think of something more positive."},
+    {t:6,text:"Consult with someone I trust to validate what I'm feeling."}
+  ]},
+  {q:"What I enjoy most about the way I am is…",opts:[
+    {t:9,text:"My ability to listen to everyone and create harmony in groups."},
+    {t:7,text:"My enthusiasm and my ability to see opportunities in everything."},
+    {t:3,text:"My efficiency and the way I achieve what I set out to do."},
+    {t:4,text:"My depth and my ability to connect authentically."}
+  ]},
+  {q:"In my difficult moments, what helps me most is…",opts:[
+    {t:6,text:"Knowing I have trusted people who support me."},
+    {t:1,text:"Having a clear plan and knowing the right next step."},
+    {t:2,text:"Feeling useful and being able to help someone else during that time."},
+    {t:5,text:"Having time and space alone to process what's happening."}
+  ]}
+];
+
+// Spiritual Gifts questions in English
+const GIFT_Q_EN = [
+  "I enjoy organizing services and events.",
+  "I am interested in starting new churches.",
+  "I enjoy working with my hands.",
+  "I can sense when someone is being insincere.",
+  "I pray for the lost on a daily basis.",
+  "Encouraging others is a high priority in my life.",
+  "Believing God for our daily needs is important to me.",
+  "Influencing others for God's kingdom through finances is extremely important to me.",
+  "I look for opportunities to pray for the sick.",
+  "I enjoy doing small things others don't usually enjoy.",
+  "I often have people over at my home.",
+  "I enjoy spending hours in prayer for other people.",
+  "Education is very important to me.",
+  "I tend to motivate others to get involved.",
+  "It hurts me when I see others suffering.",
+  "I believe God will use me to perform His miracles.",
+  "I enjoy sharing the Gospel with other groups of people and nationalities.",
+  "I have spent considerable time mastering my voice and/or musical instrument.",
+  "Caring for those who are suffering is one of my main priorities.",
+  "I get frustrated when people knowingly sin.",
+  "I enjoy serving behind the scenes.",
+  "I enjoy creating Bible outlines.",
+  "God has used me to interpret what someone speaking in tongues is saying.",
+  "I enjoy the book of Proverbs more than any other book of the Bible.",
+  "I am passionate about managing details.",
+  "I like to help start new ministry projects.",
+  "I consider myself a craftsman/craftswoman.",
+  "I sense when situations are spiritually unhealthy.",
+  "I am highly motivated to see people who don't know God come to salvation.",
+  "I seem to be caring and affectionate.",
+  "I get excited asking God for a list of seemingly impossible things.",
+  "I find ways to give offerings above and beyond my tithe.",
+  "I believe miraculous healing is possible and still occurs.",
+  "Helping others is one of my greatest motivations.",
+  "Creating a warm and welcoming environment is important to me.",
+  "I feel burdened to pray for situations that affect the world.",
+  "People come to me to learn more about God and the Bible.",
+  "I prefer to take the lead whenever possible.",
+  "I am very sensitive to sad stories.",
+  "Miracles often happen when I'm around.",
+  "The idea of living in another country for the sake of the Gospel is exciting to me.",
+  "I desire to serve the church through worship.",
+  "I enjoy connecting, caring for, and training others.",
+  "It is important to me to confront someone about sin in their life.",
+  "It bothers me when people sit and do nothing.",
+  "I share biblical truth with others to help them grow.",
+  "I pray in tongues every day.",
+  "When I study the Scriptures, I receive unique insights from God.",
+  "Creating a to-do list is easy and fun for me.",
+  "I am drawn to ministries that plant new churches.",
+  "Building something with my hands satisfies me greatly.",
+  "I can identify issues or problems quickly.",
+  "Sharing the Gospel with someone I don't know is exciting and natural for me.",
+  "I look for ways to encourage other people.",
+  "I trust that God backs me up in every situation.",
+  "I want to earn more money so I can give more.",
+  "God has used me to bring healing to those who are sick.",
+  "Being part of the process fulfills me.",
+  "I tend to make strangers feel at home.",
+  "People often ask me to pray for them.",
+  "I enjoy knowing biblical details and helping others understand them too.",
+  "I delegate responsibilities to accomplish tasks.",
+  "I am motivated to help people in need.",
+  "I have a constant hunger to see God's miraculous power.",
+  "I am very focused on reaching the world for Christ.",
+  "I get my deepest satisfaction leading others in vocal or instrumental worship.",
+  "I enjoy helping people who are going through a difficult time.",
+  "I like to hear passionate and clear preaching of the Word of God.",
+  "I like to do small things others overlook.",
+  "I prefer to teach and study the Bible topically rather than verse by verse.",
+  "Praying in tongues is encouraging and important to me.",
+  "When facing a difficulty, I tend to make wise decisions."
+];
+
+// DISC questions in English
+const DISC_Q_EN = [
+  {letter:'D', q:'When there is a problem in a group, I\'m usually the one who takes control and decides what to do.'},
+  {letter:'D', q:'I prefer to act fast and adjust later rather than wait to have all the details before moving.'},
+  {letter:'I', q:'I find it easy to talk to people I just met and make them feel comfortable.'},
+  {letter:'I', q:'In meetings or groups, I tend to be one of the ones who talks the most and encourages others.'},
+  {letter:'S', q:'I prefer a predictable, consistent environment over one full of constant changes.'},
+  {letter:'S', q:'When a team member is struggling, I naturally reach out to support them without being asked.'},
+  {letter:'C', q:'Before handing something to someone, I review it multiple times to make sure it\'s correct.'},
+  {letter:'C', q:'I feel uncomfortable when rules or procedures aren\'t clearly defined.'}
+];
+
+// ── Lang application engine ──────────────────────────────
+function setLang(lang) {
+  currentLang = lang;
+  try { localStorage.setItem('nw_lang', lang); } catch(e){}
+  document.getElementById('btnES').classList.toggle('active', lang==='es');
+  document.getElementById('btnEN').classList.toggle('active', lang==='en');
+  document.documentElement.lang = lang;
+  applyLang();
+  if(sessionCode) updateProgressCodeWidget();
+}
+
+function t(key) {
+  return TRANSLATIONS[currentLang][key] ?? TRANSLATIONS['es'][key] ?? key;
+}
+
+function applyLang() {
+  const L = TRANSLATIONS[currentLang];
+  // Update <title>
+  document.title = L.page_title;
+  // Update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (L[key] !== undefined) el.textContent = L[key];
+  });
+  // Rebuild dynamic sections that use language-dependent data
+  buildEnnea();
+  buildMotiv_ui();
+  buildDisc1d();
+  buildGifts_ui();
+  // Update static HTML sections
+  updateStaticSections();
+}
+
+function updateStaticSections() {
+  const L = TRANSLATIONS[currentLang];
+  // Name screen
+  safeText('secName .section-label', L.name_label);
+  safeHTML('secName .section-title', `${L.name_title}<br><span>${L.name_title_span}</span>`);
+  safeText('secName .section-desc', L.name_desc);
+  safeText('secName .verse-text', L.name_verse);
+  safeText('secName .verse-ref', L.name_verse_ref);
+  safeText('secName [for="inputFirstName"]', L.name_first_lbl);
+  safeAttr('inputFirstName', 'placeholder', L.name_first_ph);
+  safeText('secName [for="inputLastName"]', L.name_last_lbl);
+  safeAttr('inputLastName', 'placeholder', L.name_last_ph);
+  safeText('nameVal', L.name_val);
+  safeText('secName .save-card h4', L.save_code_title);
+  // save warning
+  const sw = document.querySelector('#secName .save-card p');
+  if(sw) sw.textContent = L.save_code_warning;
+  safeAttr('resumeCodeInput','placeholder', L.resume_ph);
+  safeText('secName .btn-resume', L.resume_btn);
+  safeText('btnComenzar', L.btn_start);
+  // Intro screen
+  safeText('sec0 .section-label', L.intro_label);
+  safeHTML('sec0 .section-title', `${L.intro_title} <span>${L.intro_title_span}</span>`);
+  safeText('introTitle',`${L.intro_title} `); // will be overwritten by personalize after name
+  // how it works label
+  const howLabel = document.querySelector('#sec0 .card .accent-line + p');
+  if(howLabel) howLabel.textContent = L.intro_how;
+  // steps
+  const steps = document.querySelectorAll('#sec0 .step-item');
+  const stepData = [
+    {title:L.step1_title, sub:L.step1_sub, time:'~10 min'},
+    {title:L.step2_title, sub:L.step2_sub, time:'~2 min'},
+    {title:L.step3_title, sub:L.step3_sub, time:'~2 min'},
+    {title:L.step4_title, sub:L.step4_sub, time:'~8 min'},
+    {title:L.step5_title, sub:L.step5_sub, time:L.time_instant},
+  ];
+  steps.forEach((s,i) => {
+    if(!stepData[i]) return;
+    const strong = s.querySelector('strong');
+    const span = s.querySelector('span');
+    if(strong) strong.textContent = stepData[i].title;
+    if(span) span.innerHTML = `${stepData[i].sub} <strong style="color:var(--teal);">${stepData[i].time}</strong>`;
+  });
+  const beginBtn = document.querySelector('#sec0 .btn-primary');
+  if(beginBtn) beginBtn.textContent = L.btn_begin;
+  // Ennea screen
+  safeText('sec1 .section-label', L.ennea_label);
+  safeHTML('sec1 .section-title', `${L.ennea_title} <span>${L.ennea_title_span}</span>`);
+  safeHTML('sec1 .section-desc', L.ennea_desc);
+  safeText('sec1 .q-prog-lbl', L.ennea_prog);
+  const enneaCount = document.querySelector('#sec1 .q-prog-cnt');
+  if(enneaCount) {
+    const done = enneaAnswers.filter(a=>a!==null).length;
+    enneaCount.innerHTML = `<strong id="enneaCount" style="color:var(--black)">${done}</strong> / 54 ${L.ennea_of}`;
+  }
+  safeText('ennea1Val', L.ennea_val);
+  safeText('sec1 .btn-back', L.btn_back);
+  safeText('sec1 .btn-primary', L.btn_continue);
+  // Motiv screen
+  safeText('sec1b .section-label', L.motiv_label);
+  safeHTML('sec1b .section-title', `${L.motiv_title} <span>${L.motiv_title_span}</span>`);
+  safeText('sec1b .section-desc', L.motiv_desc);
+  safeText('motivVal', L.motiv_val);
+  safeText('sec1b .btn-back', L.btn_back);
+  safeText('sec1b .btn-primary', L.btn_see_profile);
+  // Tiebreak ennea
+  safeText('sec1c .section-label', L.tiebreak_label);
+  safeHTML('sec1c .section-title', `${L.tiebreak_title} <span>${L.tiebreak_title_span}</span>`);
+  safeHTML('sec1c .section-desc', L.tiebreak_desc);
+  safeText('tiebreakVal', L.tiebreak_val);
+  safeText('sec1c .btn-back', L.btn_back);
+  safeText('sec1c .btn-primary', L.btn_continue);
+  // DISC screen
+  safeText('sec1d .section-label', L.disc_label);
+  safeHTML('sec1d .section-title', `${L.disc_title} <span>${L.disc_title_span}</span>`);
+  safeText('sec1d .section-desc', L.disc_desc);
+  safeText('disc1dVal', L.disc_val);
+  safeText('disc1dBack', L.btn_back);
+  safeText('sec1d .btn-primary', L.btn_see_profile);
+  // DISC tiebreak
+  safeText('sec1e .section-label', L.disctb_label);
+  safeHTML('sec1e .section-title', `${L.disctb_title} <span>${L.disctb_title_span}</span>`);
+  safeText('sec1e .section-desc', L.disctb_desc);
+  safeText('discTbVal', L.disctb_val);
+  safeText('sec1e .btn-back', L.btn_back);
+  safeText('sec1e .btn-primary', L.btn_see_profile);
+  // Profile screen
+  safeText('sec2 .section-label', L.profile_label);
+  safeText('sec2 .section-desc', L.profile_desc);
+  safeText('sec2 .btn-back', L.btn_back);
+  safeText('sec2 .btn-primary', L.btn_gifts);
+  // Gifts screen
+  safeText('sec3 .section-label', L.gifts_label);
+  safeHTML('sec3 .section-title', `${L.gifts_title} <span>${L.gifts_title_span}</span>`);
+  safeText('sec3 .section-desc', L.gifts_desc);
+  safeText('giftsVal', L.gifts_val);
+  safeText('giftsBackBtn', L.btn_back);
+  // Gift sort
+  safeText('sec3b .section-label', L.giftsort_label);
+  safeHTML('sec3b .section-title', `${L.giftsort_title} <span>${L.giftsort_title_span}</span>`);
+  safeHTML('sec3b .gift-sort-intro', L.giftsort_intro);
+  safeText('sec3b .btn-back', L.btn_back);
+  safeText('sec3b .btn-primary', L.btn_results);
+  // Email modal
+  safeText('.modal h3', L.modal_title);
+  safeText('.modal > p', L.modal_desc);
+  const modalLabels = document.querySelectorAll('.modal-field label');
+  if(modalLabels[0]) modalLabels[0].textContent = L.modal_name_lbl;
+  if(modalLabels[1]) modalLabels[1].textContent = L.modal_email_lbl;
+  if(modalLabels[2]) modalLabels[2].textContent = L.modal_note_lbl;
+  safeAttr('senderName','placeholder', L.modal_name_ph);
+  safeAttr('recipientEmail','placeholder', L.modal_email_ph);
+  safeAttr('emailNote','placeholder', L.modal_note_ph);
+  safeText('.modal-cancel', L.modal_cancel);
+  safeText('.modal-send', L.modal_send);
+  // Update gifts block progress label if visible
+  updateGiftsBlockUI();
+}
+
+function safeText(selectorOrId, text) {
+  const el = document.getElementById(selectorOrId) || document.querySelector('#'+selectorOrId) || document.querySelector(selectorOrId);
+  if(el && text !== undefined) el.textContent = text;
+}
+function safeHTML(selectorOrId, html) {
+  const el = document.getElementById(selectorOrId) || document.querySelector('#'+selectorOrId) || document.querySelector(selectorOrId);
+  if(el && html !== undefined) el.innerHTML = html;
+}
+function safeAttr(id, attr, val) {
+  const el = document.getElementById(id);
+  if(el && val !== undefined) el.setAttribute(attr, val);
+}
+
+function updateGiftsBlockUI() {
+  const L = TRANSLATIONS[currentLang];
+  const blockLbl = document.querySelector('#sec3 .q-prog-lbl');
+  if(blockLbl) blockLbl.innerHTML = `${L.gifts_block_of.charAt(0).toUpperCase()+L.gifts_block_of.slice(1)} <span id="giftsBlockCurrent">${giftsCurrentBlock+1}</span> ${L.gifts_block_of} 6`;
+  const overallProg = document.getElementById('giftsOverallProg');
+  if(overallProg) {
+    const totalDone = giftAnswers.filter(a=>a!==null).length;
+    overallProg.textContent = `${totalDone} ${L.gifts_total_of}`;
+  }
+  // Update next button text
+  const nextBtn = document.getElementById('giftsNextBtn');
+  if(nextBtn) {
+    const isLast = giftsCurrentBlock === GIFTS_TOTAL_BLOCKS - 1;
+    nextBtn.textContent = isLast ? L.gifts_see_gifts : `${L.gifts_block_next} ${giftsCurrentBlock+2} ${L.gifts_block_of2} ${GIFTS_TOTAL_BLOCKS} →`;
+    nextBtn.className = 'btn-primary' + (isLast ? ' btn-orange' : '');
+  }
+}
+
+// ── Override data-dependent functions to be lang-aware ──
+
+function buildMotiv_ui() {
+  const wrap = document.getElementById('motivContainer');
+  if(!wrap) return;
+  const L = TRANSLATIONS[currentLang];
+  const questions = currentLang === 'en' ? MOTIV_Q_EN : MOTIV_Q;
+  const types = currentLang === 'en' ? ENNEA_TYPES_EN : ENNEA_TYPES;
+  wrap.innerHTML = '';
+  questions.forEach((mq,i) => {
+    const section = document.createElement('div');
+    section.className = 'motiv-section';
+    section.innerHTML = `
+      <div class="motiv-intro">
+        <strong style="color:var(--teal);">${L.motiv_q_prefix} ${i+1} ${L.motiv_q_of}</strong> &nbsp;·&nbsp; ${mq.q}
+      </div>
+      <div id="motiv_opts_${i}">
+        ${mq.opts.map((opt,oi)=>`
+          <div class="motiv-card${motivAnswers[i]===opt.t?' selected':''}" onclick="setMotiv(${i},${opt.t},this,${oi})">
+            <div class="motiv-top">
+              <div class="motiv-num" style="background:${(currentLang==='en'?ENNEA_TYPES_EN:ENNEA_TYPES)[opt.t].color};">${opt.t}</div>
+              <div class="motiv-body">
+                <div class="motiv-title">${(currentLang==='en'?ENNEA_TYPES_EN:ENNEA_TYPES)[opt.t].name}</div>
+                <div class="motiv-desc">${opt.text}</div>
+              </div>
+              <div class="motiv-check">
+                <svg viewBox="0 0 12 12" fill="none"><polyline points="1,6 4.5,9.5 11,2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </div>`).join('')}
+      </div>`;
+    wrap.appendChild(section);
+  });
+}
+
+function buildGifts_ui() {
+  // Just re-render current block to pick up new scale labels
+  if(document.getElementById('sec3')?.classList.contains('active')) {
+    renderGiftsBlock();
   }
 }
 
 // INIT
-(async()=>{ await loadTeams(); buildEnnea(); buildDisc1d(); buildGifts(); })();
+(async()=>{
+  // Restore saved language preference
+  try { const saved = localStorage.getItem('nw_lang'); if(saved) currentLang = saved; } catch(e){}
+  document.getElementById(currentLang==='en'?'btnEN':'btnES').classList.add('active');
+  document.getElementById(currentLang==='en'?'btnES':'btnEN').classList.remove('active');
+  await loadTeams();
+  buildEnnea();
+  buildDisc1d();
+  buildGifts();
+  if(currentLang==='en') applyLang();
+})();
 </script>
 </body>
 </html>
