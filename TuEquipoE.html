@@ -180,23 +180,44 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
 .gift-bar-bg{width:80px;height:5px;background:var(--off-white);border-radius:2px;overflow:hidden;border:1px solid var(--border);flex-shrink:0;}
 .gift-bar-fill{height:100%;background:var(--teal);border-radius:2px;}
 .gift-score-val{font-size:12px;font-weight:700;color:var(--text-soft);width:34px;text-align:right;flex-shrink:0;}
-.teams-section-label{margin-bottom:18px;}
+/* TEAM CARD — badge + % side by side, info to the right */
 .teams-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:26px;}
-.team-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:20px;display:flex;align-items:flex-start;gap:16px;transition:transform 0.2s,box-shadow 0.2s;}
+.team-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:20px;display:flex;align-items:flex-start;gap:14px;transition:transform 0.2s,box-shadow 0.2s;}
 .team-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.08);}
 .team-card.rank-1{border-top:4px solid var(--teal);border-color:var(--teal);}
 .team-card.rank-1 .team-badge{background:var(--teal);}
+.team-left{flex-shrink:0;display:flex;flex-direction:row;align-items:flex-start;gap:10px;}
 .team-badge{flex-shrink:0;width:44px;height:44px;background:var(--dark);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.match-score{flex-shrink:0;text-align:center;}
+.match-pct{font-family:Helvetica,'Montserrat',sans-serif;font-size:22px;font-weight:700;color:var(--dark);line-height:1;letter-spacing:-1px;}
+.team-card.rank-1 .match-pct{color:var(--teal);}
+.match-pct-label{font-size:9px;color:var(--text-soft);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
 .team-info{flex:1;min-width:0;}
 .team-rank{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:3px;}
 .team-name{font-family:Helvetica,'Montserrat',sans-serif;font-size:16px;font-weight:700;color:var(--black);margin-bottom:5px;}
 .team-desc{font-size:13px;color:var(--text-soft);line-height:1.6;margin-bottom:9px;}
 .team-gifts{display:flex;flex-wrap:wrap;gap:5px;}
 .gift-tag{font-size:10.5px;font-weight:700;background:var(--off-white);color:var(--dark);padding:3px 9px;border-radius:2px;border:1px solid var(--border);text-transform:uppercase;letter-spacing:0.3px;}
-.match-score{flex-shrink:0;text-align:center;padding-top:0;align-self:flex-start;}
-.match-pct{font-family:Helvetica,'Montserrat',sans-serif;font-size:22px;font-weight:700;color:var(--dark);line-height:1;letter-spacing:-1px;}
-.team-card.rank-1 .match-pct{color:var(--teal);}
-.match-pct-label{font-size:9px;color:var(--text-soft);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+.team-why{font-size:12.5px;color:var(--teal-dark);font-weight:600;margin-top:9px;line-height:1.5;padding:8px 10px;background:rgba(0,186,188,0.06);border-radius:3px;border-left:3px solid var(--teal);}
+/* Orphan gift alert */
+.orphan-alert{background:rgba(241,93,44,0.07);border:1px solid rgba(241,93,44,0.2);border-left:4px solid var(--orange);border-radius:0 4px 4px 0;padding:14px 16px;margin-bottom:16px;}
+.orphan-alert h4{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.orphan-alert p{font-size:13px;color:var(--text-body);line-height:1.6;}
+/* QR box */
+.qr-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:22px;margin-bottom:16px;text-align:center;}
+.qr-card h3{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-soft);margin-bottom:14px;}
+#qrCanvas{border:1px solid var(--border);border-radius:3px;}
+.qr-hint{font-size:11.5px;color:var(--text-soft);margin-top:10px;font-weight:500;}
+/* Save/Resume */
+.save-card{background:var(--off-white);border:1px dashed var(--border);border-radius:4px;padding:18px 20px;margin-top:20px;}
+.save-card h4{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:10px;}
+.save-code{font-family:Helvetica,monospace;font-size:28px;font-weight:800;color:var(--teal);letter-spacing:6px;text-align:center;padding:12px;background:var(--white);border:1px solid var(--border);border-radius:3px;margin-bottom:8px;}
+.save-hint{font-size:12px;color:var(--text-soft);text-align:center;}
+.resume-row{display:flex;gap:8px;margin-top:14px;}
+.resume-input{flex:1;border:1.5px solid var(--border);border-radius:3px;padding:10px 14px;font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--black);text-align:center;}
+.resume-input:focus{outline:none;border-color:var(--teal);}
+.btn-resume{padding:10px 18px;background:var(--teal);color:var(--white);border:none;border-radius:3px;font-family:'Montserrat',Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;}
+.resume-msg{font-size:12px;margin-top:8px;font-weight:600;display:none;}
 .cta-card{background:var(--dark);border-radius:4px;padding:28px;margin-bottom:16px;}
 .cta-card h3{font-size:14px;font-weight:700;color:var(--white);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;}
 .cta-card p{font-size:13.5px;color:rgba(255,255,255,0.65);line-height:1.65;}
@@ -262,11 +283,10 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
   .q-opts{flex-wrap:wrap;}
   .q-opt{min-width:calc(50% - 4px);flex:none;}
   .tiebreak-pair{grid-template-columns:1fr;}
-  .team-card{flex-direction:column;}
-  .match-score{align-self:flex-end;margin-top:-48px;}
   .result-cols{grid-template-columns:1fr;}
   .export-row{flex-direction:column;}
   .header-inner{gap:14px;}
+  .team-left{flex-direction:column;align-items:center;}
 }
 </style>
 </head>
@@ -306,12 +326,59 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
 
 <main>
 
-<!-- SEC 0: INTRO -->
-<div class="section active" id="sec0">
+<!-- SEC -1: NAME -->
+<div class="section active" id="secName">
+  <div class="section-header">
+    <div class="section-label">Iglesia Northwood · Eneagrama</div>
+    <h2 class="section-title">¡Bienvenido/a!<br><span>¿Cómo te llamas?</span></h2>
+    <p class="section-desc">Tu nombre nos ayuda a personalizar la experiencia a lo largo de la evaluación.</p>
+  </div>
+  <div class="verse-box">
+    <p class="verse-text">"Porque somos hechura de Dios, creados en Cristo Jesús para buenas obras, las cuales Dios dispuso de antemano a fin de que las pongamos en práctica."</p>
+    <p class="verse-ref">Efesios 2:10</p>
+  </div>
+  <div class="card">
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <label style="display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:7px;">Nombre</label>
+        <input type="text" id="inputFirstName" placeholder="Ej. María"
+          style="width:100%;border:1.5px solid var(--border);border-radius:3px;padding:12px 14px;font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;font-weight:600;color:var(--black);background:var(--off-white);transition:border-color 0.2s;"
+          onkeydown="if(event.key==='Enter')startWithName()"
+          oninput="document.getElementById('nameVal').style.display='none'">
+      </div>
+      <div>
+        <label style="display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:7px;">Apellido</label>
+        <input type="text" id="inputLastName" placeholder="Ej. González"
+          style="width:100%;border:1.5px solid var(--border);border-radius:3px;padding:12px 14px;font-family:'Montserrat',Helvetica,sans-serif;font-size:16px;font-weight:600;color:var(--black);background:var(--off-white);transition:border-color 0.2s;"
+          onkeydown="if(event.key==='Enter')startWithName()">
+      </div>
+    </div>
+    <p class="validation-msg" id="nameVal" style="margin-top:12px;">Por favor ingresa tu nombre antes de continuar.</p>
+  </div>
+  <div class="save-card">
+    <h4>¿Tienes un código de progreso guardado?</h4>
+    <div class="resume-row">
+      <input type="text" class="resume-input" id="resumeCodeInput" maxlength="4" placeholder="XXXX" oninput="this.value=this.value.toUpperCase()">
+      <button class="btn-resume" onclick="resumeProgress()">RETOMAR →</button>
+    </div>
+    <p class="resume-msg" id="resumeMsg"></p>
+  </div>
+  <div class="nav-row">
+    <button class="btn-primary" id="btnComenzar" onclick="startWithName()" disabled
+      style="background:var(--border);color:var(--text-soft);cursor:not-allowed;box-shadow:none;transform:none;">
+      CARGANDO EQUIPOS…
+    </button>
+  </div>
+  <div id="sheetsBanner" class="sheets-banner loading" style="display:none;margin-bottom:0;">
+    <span class="sheets-dot sheets-dot-loading"></span> Cargando equipos de servicio en Northwood…
+  </div>
+</div>
+
+<div class="section" id="sec0">
   <div class="section-header">
     <div class="section-label">Bienvenido/a · Versión Eneagrama</div>
-    <h2 class="section-title">Diseño revela <span>destino</span></h2>
-    <p class="section-desc">Esta versión usa el sistema del Eneagrama para descubrir tu tipo de personalidad y combinarlo con tus dones espirituales para encontrar tu equipo ideal en Iglesia Northwood.</p>
+    <h2 class="section-title" id="introTitle">Diseño revela <span>destino</span></h2>
+    <p class="section-desc" id="introDesc">Esta versión usa el sistema del Eneagrama para descubrir tu tipo de personalidad y combinarlo con tus dones espirituales para encontrar tu equipo ideal en Iglesia Northwood.</p>
   </div>
   <div class="verse-box">
     <p class="verse-text">"Porque somos hechura de Dios, creados en Cristo Jesús para buenas obras, las cuales Dios dispuso de antemano a fin de que las pongamos en práctica."</p>
@@ -329,9 +396,6 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
   </div>
   <div class="nav-row">
     <button class="btn-primary btn-orange" onclick="goTo(1)">COMENZAR →</button>
-  </div>
-  <div id="sheetsBanner" class="sheets-banner loading" style="display:flex;margin-bottom:0;">
-    <span class="sheets-dot sheets-dot-loading"></span> Cargando equipos desde Google Sheets…
   </div>
 </div>
 
@@ -369,7 +433,7 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
   </div>
 </div>
 
-<!-- SEC 1C: TIE-BREAKER (shown only when needed) -->
+<!-- SEC 1C: ENNEA TIE-BREAKER (shown only when needed) -->
 <div class="section" id="sec1c">
   <div class="section-header">
     <div class="section-label">Una pregunta más</div>
@@ -379,8 +443,42 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
   <div id="tiebreakContainer"></div>
   <p class="validation-msg" id="tiebreakVal">Por favor selecciona una opción para continuar.</p>
   <div class="nav-row">
-    <button class="btn-back" onclick="goTo(1b)">← ATRÁS</button>
-    <button class="btn-primary" onclick="submitTiebreak()">VER MI PERFIL →</button>
+    <button class="btn-back" onclick="goTo('1b')">← ATRÁS</button>
+    <button class="btn-primary" onclick="submitTiebreak()">CONTINUAR →</button>
+  </div>
+</div>
+
+<!-- SEC 1D: DISC QUESTIONS -->
+<div class="section" id="sec1d">
+  <div class="section-header">
+    <div class="section-label">Paso 1 · Estilo de Comportamiento</div>
+    <h2 class="section-title">¿Cómo <span>actúas</span>?</h2>
+    <p class="section-desc">8 preguntas rápidas sobre tu estilo natural de comportamiento. Responde según cómo eres normalmente, no según cómo crees que deberías ser.</p>
+  </div>
+  <div class="q-prog">
+    <div class="q-prog-row"><span class="q-prog-lbl">Progreso</span><span class="q-prog-cnt"><strong id="discCount" style="color:var(--black)">0</strong> / 8 respondidas</span></div>
+    <div class="q-bar-bg"><div class="q-bar-fill" id="discProg" style="width:0%"></div></div>
+  </div>
+  <div id="discContainer"></div>
+  <p class="validation-msg" id="disc1dVal">Por favor responde todas las preguntas antes de continuar.</p>
+  <div class="nav-row">
+    <button class="btn-back" id="disc1dBack" onclick="backFromDisc1d()">← ATRÁS</button>
+    <button class="btn-primary" onclick="submitDisc1d()">VER MI PERFIL →</button>
+  </div>
+</div>
+
+<!-- SEC 1E: DISC TIEBREAK (shown only when needed) -->
+<div class="section" id="sec1e">
+  <div class="section-header">
+    <div class="section-label">Una última pregunta</div>
+    <h2 class="section-title">Estilo muy <span>equilibrado</span></h2>
+    <p class="section-desc">Tus estilos de comportamiento están muy parejos. ¿Cuál de estos te describe mejor en tu día a día?</p>
+  </div>
+  <div id="discTiebreakContainer"></div>
+  <p class="validation-msg" id="discTbVal">Por favor selecciona una opción para continuar.</p>
+  <div class="nav-row">
+    <button class="btn-back" onclick="goTo('1d')">← ATRÁS</button>
+    <button class="btn-primary" onclick="submitDiscTiebreak()">VER MI PERFIL →</button>
   </div>
 </div>
 
@@ -782,7 +880,8 @@ async function loadTeams(){
       TEAMS=rows.map((r,i)=>({
         id:'team_'+i,emoji:r['Emoji']||'⭐',name:r['Nombre']||'',desc:r['Descripcion']||'',
         gifts:(r['Dones']||'').split('|').map(s=>s.trim()).filter(Boolean),
-        eneagramas:(r['Eneagramas']||'').split('|').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n))
+        eneagramas:(r['Eneagramas']||'').split('|').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n)),
+        disc:(r['DISC']||'').split('|').map(s=>s.trim().toUpperCase()).filter(Boolean)
       }));
       showBanner(false);return;
     }catch(e){console.warn('Proxy failed',e);}
@@ -791,37 +890,445 @@ async function loadTeams(){
 }
 
 function showBanner(loading,warn=false){
-  const b=document.getElementById('sheetsBanner');if(!b)return;
-  if(loading){b.innerHTML=`<span class="sheets-dot sheets-dot-loading"></span> Cargando equipos desde Google Sheets…`;b.className='sheets-banner loading';b.style.display='flex';b.style.opacity='1';}
-  else if(warn){b.innerHTML=`<span class="sheets-dot sheets-dot-warn"></span><span style="flex:1;">No se pudo conectar — usando equipos guardados localmente.</span><button onclick="retryLoad()" style="flex-shrink:0;background:var(--orange);color:#fff;border:none;border-radius:3px;padding:5px 12px;font-size:11px;font-weight:700;text-transform:uppercase;cursor:pointer;font-family:inherit;">↺ Reintentar</button>`;b.className='sheets-banner warn';b.style.display='flex';b.style.opacity='1';}
-  else{b.innerHTML=`<span class="sheets-dot sheets-dot-ok"></span> ${TEAMS.length} equipos cargados desde Google Sheets`;b.className='sheets-banner ok';b.style.display='flex';b.style.opacity='1';setTimeout(()=>{b.style.transition='opacity 0.4s';b.style.opacity='0';setTimeout(()=>{b.style.display='none';},400);},3000);}
+  const b=document.getElementById('sheetsBanner');
+  const btn=document.getElementById('btnComenzar');
+  if(loading){
+    if(b){b.innerHTML=`<span class="sheets-dot sheets-dot-loading"></span> Cargando equipos de servicio en Northwood…`;b.className='sheets-banner loading';b.style.display='none';}
+    if(btn){btn.disabled=true;btn.textContent='CARGANDO EQUIPOS…';btn.style.cssText='background:var(--border);color:var(--text-soft);cursor:not-allowed;box-shadow:none;transform:none;';}
+  } else if(warn){
+    if(b){b.innerHTML=`<span class="sheets-dot sheets-dot-warn"></span><span style="flex:1;">No se pudo conectar — usando equipos guardados localmente.</span><button onclick="retryLoad()" style="flex-shrink:0;background:var(--orange);color:#fff;border:none;border-radius:3px;padding:5px 12px;font-size:11px;font-weight:700;text-transform:uppercase;cursor:pointer;font-family:inherit;">↺ Reintentar</button>`;b.className='sheets-banner warn';b.style.display='flex';b.style.opacity='1';}
+    if(btn){btn.disabled=false;btn.textContent='COMENZAR →';btn.style.cssText='background:var(--orange);';}
+  } else {
+    if(b){b.style.display='none';}
+    if(btn){btn.disabled=false;btn.textContent='COMENZAR →';btn.style.cssText='background:var(--orange);';}
+  }
 }
 async function retryLoad(){await loadTeams();}
 
 const FALLBACK_TEAMS=[
-  {id:'p1',emoji:'🎛️',name:'ProPresenter (Proyección)',desc:'Mantiene los servicios funcionando sin problemas con organización y confiabilidad detrás de escena.',gifts:['A','J','U'],eneagramas:[1,6]},
-  {id:'p2',emoji:'💡',name:'Luces (Lightkey)',desc:'Usa habilidad artística para crear una atmósfera que apoya la adoración y la Palabra.',gifts:['C','J'],eneagramas:[4,7]},
-  {id:'p3',emoji:'🎶',name:'Adoración (Vocalistas/Instrumentistas)',desc:'Lleva a la iglesia a la presencia de Dios a través de la música y la expresión artística.',gifts:['R','F','T'],eneagramas:[4,2,7]},
-  {id:'p4',emoji:'🎚️',name:'Adoración (Técnico de Sonido)',desc:'Administra sistemas complejos para que el mensaje y la adoración sean escuchados con claridad.',gifts:['A','M','U'],eneagramas:[1,5,6]},
-  {id:'p5',emoji:'📸',name:'Fotografía',desc:'Cuenta la historia del trabajo de Dios en la iglesia a través de imágenes que inspiran y conectan.',gifts:['C','E','A'],eneagramas:[4,7,3]},
-  {id:'p6',emoji:'👶',name:'Northwood Kids (Escuela Dominical)',desc:'Explica la Palabra de Dios sencillamente, cuida a los niños y discipula a la siguiente generación.',gifts:['V','S','O'],eneagramas:[2,9,6]},
-  {id:'p7',emoji:'🤝',name:'Ujieres',desc:'Crea orden y da bienvenida a las personas para que puedan enfocarse en Dios.',gifts:['K','U','J'],eneagramas:[9,6,2]},
-  {id:'p8',emoji:'🏠',name:'Anfitriones (Presencial)',desc:'Ser el primer rostro de la iglesia, conectar con los visitantes y ayudarlos a sentirse en casa.',gifts:['K','E','F'],eneagramas:[2,7,9]},
-  {id:'p9',emoji:'👋',name:'Equipo de Bienvenida',desc:'Saludar, animar y extender calidez para que las personas sientan el amor de Dios de inmediato.',gifts:['K','F','O'],eneagramas:[2,9,7]},
-  {id:'p10',emoji:'💬',name:'Grupos Pequeños',desc:'Liderar y facilitar comunidad donde las personas se conectan, crecen y se apoyan mutuamente.',gifts:['S','N','V','F'],eneagramas:[2,9,6]}
+  {id:'p1',emoji:'🎛️',name:'ProPresenter (Proyección)',desc:'Mantiene los servicios funcionando sin problemas con organización y confiabilidad detrás de escena.',gifts:['A','J','U'],eneagramas:[1,6],disc:['C','D']},
+  {id:'p2',emoji:'💡',name:'Luces (Lightkey)',desc:'Usa habilidad artística para crear una atmósfera que apoya la adoración y la Palabra.',gifts:['C','J'],eneagramas:[4,7],disc:['I','C']},
+  {id:'p3',emoji:'🎶',name:'Adoración (Vocalistas/Instrumentistas)',desc:'Lleva a la iglesia a la presencia de Dios a través de la música y la expresión artística.',gifts:['R','F','T'],eneagramas:[4,2,7],disc:['I','D']},
+  {id:'p4',emoji:'🎚️',name:'Adoración (Técnico de Sonido)',desc:'Administra sistemas complejos para que el mensaje y la adoración sean escuchados con claridad.',gifts:['A','M','U'],eneagramas:[1,5,6],disc:['C','S']},
+  {id:'p5',emoji:'📸',name:'Fotografía',desc:'Cuenta la historia del trabajo de Dios en la iglesia a través de imágenes que inspiran y conectan.',gifts:['C','E','A'],eneagramas:[4,7,3],disc:['I','C']},
+  {id:'p6',emoji:'👶',name:'Northwood Kids (Escuela Dominical)',desc:'Explica la Palabra de Dios sencillamente, cuida a los niños y discipula a la siguiente generación.',gifts:['V','S','O'],eneagramas:[2,9,6],disc:['S','I']},
+  {id:'p7',emoji:'🤝',name:'Ujieres',desc:'Crea orden y da bienvenida a las personas para que puedan enfocarse en Dios.',gifts:['K','U','J'],eneagramas:[9,6,2],disc:['S','D']},
+  {id:'p8',emoji:'🏠',name:'Anfitriones (Presencial)',desc:'Ser el primer rostro de la iglesia, conectar con los visitantes y ayudarlos a sentirse en casa.',gifts:['K','E','F'],eneagramas:[2,7,9],disc:['I','S']},
+  {id:'p9',emoji:'👋',name:'Equipo de Bienvenida',desc:'Saludar, animar y extender calidez para que las personas sientan el amor de Dios de inmediato.',gifts:['K','F','O'],eneagramas:[2,9,7],disc:['I','S']},
+  {id:'p10',emoji:'💬',name:'Grupos Pequeños',desc:'Liderar y facilitar comunidad donde las personas se conectan, crecen y se apoyan mutuamente.',gifts:['S','N','V','F'],eneagramas:[2,9,6],disc:['I','D','S']}
 ];
 
 // ═══════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════
-let currentSec = 0;
-let enneaAnswers = new Array(54).fill(null);   // scale 1-4
-let motivAnswers = new Array(9).fill(null);    // type number chosen per motiv question
+let currentSec = 'Name';
+let userName = '';
+let userFullName = '';
+let enneaAnswers = new Array(54).fill(null);
+let motivAnswers = new Array(9).fill(null);
 let tiebreakChoice = null;
 let primaryType = null, secondaryType = null;
-let giftAnswers = new Array(72).fill(null);    // scale 1-4
-let giftSortOrder = [];   // ordered array of gift key strings after prioritization
-let rawGiftScores = {};   // final adjusted gift scores
+// DISC state
+let discAnswers = new Array(8).fill(null); // 8 DISC questions, scale 1-4
+let discPrimary = null, discSecondary = null; // computed DISC types
+let discTiebreakChoice = null;
+let giftAnswers = new Array(72).fill(null);
+let giftSortOrder = [];
+let rawGiftScores = {};
+
+// ═══════════════════════════════════════
+// NAME SCREEN
+// ═══════════════════════════════════════
+function startWithName(){
+  const fn = document.getElementById('inputFirstName').value.trim();
+  const ln = document.getElementById('inputLastName').value.trim();
+  if(!fn){ document.getElementById('nameVal').style.display='block'; document.getElementById('inputFirstName').focus(); return; }
+  userName = fn;
+  userFullName = ln ? fn+' '+ln : fn;
+  // Personalize sec0
+  document.getElementById('introTitle').innerHTML = `Hola, <span>${fn}</span> — Diseño revela destino`;
+  document.getElementById('introDesc').textContent = `${fn}, esta evaluación usará el Eneagrama para descubrir tu tipo de personalidad y combinarlo con tus dones espirituales para encontrar el equipo ideal para ti en Iglesia Northwood.`;
+  goTo(0);
+}
+
+// ═══════════════════════════════════════
+// SAVE / RESUME PROGRESS
+// ═══════════════════════════════════════
+function generateCode(){
+  // 4-char alphanumeric code from name + timestamp
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const seed = userName.toUpperCase().charCodeAt(0)||65;
+  let code='';
+  for(let i=0;i<4;i++) code+=chars[(seed*31+Date.now()+i*97)%chars.length];
+  return code;
+}
+
+function saveProgress(){
+  const code = generateCode();
+  const data = {
+    userName, userFullName,
+    enneaAnswers, motivAnswers, tiebreakChoice,
+    primaryType, secondaryType,
+    discAnswers, discPrimary, discSecondary, discTiebreakChoice,
+    giftAnswers, giftSortOrder, rawGiftScores,
+    currentSec: String(currentSec)
+  };
+  try{ localStorage.setItem('nw_prog_'+code, JSON.stringify(data)); return code; }
+  catch(e){ return null; }
+}
+
+function resumeProgress(){
+  const code = document.getElementById('resumeCodeInput').value.trim().toUpperCase();
+  const msg = document.getElementById('resumeMsg');
+  if(code.length!==4){ msg.style.display='block'; msg.style.color='var(--orange)'; msg.textContent='El código debe tener 4 caracteres.'; return; }
+  try{
+    const raw = localStorage.getItem('nw_prog_'+code);
+    if(!raw){ msg.style.display='block'; msg.style.color='var(--orange)'; msg.textContent='Código no encontrado. Verifica e intenta de nuevo.'; return; }
+    const d = JSON.parse(raw);
+    userName=d.userName||''; userFullName=d.userFullName||userName;
+    enneaAnswers=d.enneaAnswers||new Array(54).fill(null);
+    motivAnswers=d.motivAnswers||new Array(9).fill(null);
+    tiebreakChoice=d.tiebreakChoice||null;
+    primaryType=d.primaryType||null; secondaryType=d.secondaryType||null;
+    discAnswers=d.discAnswers||new Array(8).fill(null);
+    discPrimary=d.discPrimary||null; discSecondary=d.discSecondary||null;
+    discTiebreakChoice=d.discTiebreakChoice||null;
+    giftAnswers=d.giftAnswers||new Array(72).fill(null);
+    giftSortOrder=d.giftSortOrder||[]; rawGiftScores=d.rawGiftScores||{};
+    document.getElementById('inputFirstName').value=userName;
+    document.getElementById('inputLastName').value=userFullName.replace(userName,'').trim();
+    buildEnnea(); buildGifts();
+    // Restore personalized text
+    document.getElementById('introTitle').innerHTML=`Hola, <span>${userName}</span> — Diseño revela destino`;
+    document.getElementById('introDesc').textContent=`${userName}, bienvenido/a de regreso. Continúa donde te quedaste.`;
+    const sec = d.currentSec==='Name'?0:d.currentSec;
+    goTo(isNaN(sec)?sec:Number(sec));
+    msg.style.display='block'; msg.style.color='var(--teal-dark)'; msg.textContent='✓ Progreso restaurado correctamente.';
+  }catch(e){ msg.style.display='block'; msg.style.color='var(--orange)'; msg.textContent='Error al restaurar. Intenta de nuevo.'; }
+}
+
+// ═══════════════════════════════════════
+// PERSONALIZED SECTION TEXTS
+// ═══════════════════════════════════════
+function personalizeSection(secId){
+  const n = userName || '';
+  const map = {
+    1: { desc: `${n ? n+', r' : 'R'}esponde según cómo eres la mayor parte de tu vida, no cómo quisieras ser.` },
+    '1b': { desc: `El eneagrama se basa en motivaciones más que en comportamientos, ${n}. Estas preguntas afinan tu perfil.` },
+    2: { desc: `${n ? n+', a' : 'A'}sí es como Dios te diseñó. Estas fortalezas son exactamente lo que el equipo correcto necesita.` },
+    3: { desc: `${n ? n+', l' : 'L'}ee cada afirmación y selecciona con qué frecuencia te describe.` },
+    '3b': { title: `${n ? n+', ¿en' : '¿En'} cuál área te usa más Dios?` }
+  };
+  const el = document.getElementById('sec'+secId);
+  if(!el) return;
+  const m = map[secId];
+  if(!m) return;
+  if(m.desc){ const d=el.querySelector('.section-desc'); if(d) d.textContent=m.desc; }
+  if(m.title){ const t=el.querySelector('.section-title'); if(t) t.innerHTML=m.title; }
+}
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+function goTo(n){
+  const prevId = currentSec==='Name'?'secName':'sec'+currentSec;
+  document.getElementById(prevId)?.classList.remove('active');
+  const nextId = n==='Name'?'secName':'sec'+n;
+  document.getElementById(nextId)?.classList.add('active');
+  currentSec = n;
+  const pct={Name:0,0:5,1:15,'1b':28,'1c':32,'1d':38,'1e':42,2:50,3:65,'3b':80,4:100}[String(n)]||0;
+  document.getElementById('progressFill').style.width=pct+'%';
+  const labelIdx={Name:0,0:0,1:1,'1b':1,'1c':1,'1d':1,'1e':1,2:2,3:3,'3b':3,4:4}[String(n)]||0;
+  ['lbl0','lbl1','lbl2','lbl3','lbl4'].forEach((id,i)=>
+    document.getElementById(id).classList.toggle('active',i<=labelIdx));
+  personalizeSection(n);
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(n!=='Name' && n!==0) saveProgress();
+}
+
+function backFromProfile(){
+  goTo('1d');
+}
+
+function backFromDisc1d(){
+  // Go back to ennea tiebreaker if it was shown, else to motiv questions
+  if(tiebreakChoice!==null) goTo('1c');
+  else goTo('1b');
+}
+
+// ═══════════════════════════════════════
+// CALCULATE RESULTS  — GIFTS DOMINANT
+// ═══════════════════════════════════════
+function calculateResults(){
+  // ── Apply prioritization bonuses to gift scores
+  const adj={...rawGiftScores};
+  giftSortOrder.forEach((k,i)=>{ adj[k]+=[1.5,1.0,0.6,0.3,0.1,0][i]||0; });
+  const sorted=Object.entries(adj).sort((a,b)=>b[1]-a[1]);
+
+  // Weight tables by position
+  const POS_W={1:[1],2:[0.60,0.40],3:[0.50,0.30,0.20],4:[0.40,0.30,0.20,0.10]};
+  const maxAdj=13.5;
+
+  const teamScores=TEAMS.map(t=>{
+    let sc=0;
+
+    // ── DONES: 75 pts — dominant factor, always counted, never blocked
+    const gw=POS_W[Math.min(t.gifts.length,4)]||POS_W[4];
+    t.gifts.forEach((g,i)=>{ sc+=(adj[g]||0)/maxAdj*75*(gw[i]??gw[gw.length-1]); });
+
+    // ── DISC: 0–15 pts — amplifier only, never subtracts
+    if(discPrimary){
+      const dw=POS_W[Math.min((t.disc||[]).length,4)]||POS_W[4];
+      let ds=0;
+      (t.disc||[]).forEach((d,i)=>{
+        if(d===discPrimary)   ds+=15*(dw[i]??dw[dw.length-1]);
+        if(d===discSecondary) ds+=15*(dw[i]??dw[dw.length-1])*0.35;
+      });
+      sc+=Math.min(ds,15);
+    }
+
+    // ── ENEAGRAMA: 0–10 pts — amplifier only, never subtracts
+    const ew=POS_W[Math.min((t.eneagramas||[]).length,4)]||POS_W[4];
+    let es=0;
+    (t.eneagramas||[]).forEach((e,i)=>{
+      if(e===primaryType)   es+=10*(ew[i]??ew[ew.length-1]);
+      if(e===secondaryType) es+=10*(ew[i]??ew[ew.length-1])*0.35;
+    });
+    sc+=Math.min(es,10);
+
+    // ── Top gift position bonus (max 8) — rewards strongest gift alignment
+    if(t.gifts[0]===sorted[0][0]) sc+=8;
+    else if(t.gifts.includes(sorted[0][0])) sc+=4;
+
+    // ── Build personalized "why" explanation
+    const matchedGifts=t.gifts.filter(g=>adj[g]>10).map(g=>GIFT_NAMES[g]);
+    const discMatch=(t.disc||[]).includes(discPrimary)||(t.disc||[]).includes(discSecondary);
+    const enneaMatch=(t.eneagramas||[]).includes(primaryType)||(t.eneagramas||[]).includes(secondaryType);
+    const whyParts=[];
+    if(matchedGifts.length) whyParts.push(`Tu don de ${matchedGifts[0]} es una necesidad real en este equipo`);
+    if(discMatch && discPrimary) whyParts.push(`tu estilo ${discPrimary} (${DISC_NAMES[discPrimary]}) encaja con la dinámica del equipo`);
+    if(enneaMatch) whyParts.push(`tu Eneatipo ${primaryType} aporta exactamente lo que necesitan`);
+    const why=whyParts.length?whyParts.join(' y ')+'.':'Tus dones complementan bien las necesidades de este equipo.';
+
+    return{...t, score:Math.min(99,Math.round(sc)), why};
+  }).sort((a,b)=>b.score-a.score);
+
+  // ── Detect orphan gifts (high score but no team covers them)
+  const coveredGifts=new Set(TEAMS.flatMap(t=>t.gifts));
+  const orphans=sorted.slice(0,3).filter(([k])=>!coveredGifts.has(k));
+
+  renderResults(teamScores.slice(0,4), sorted.slice(0,5), orphans);
+  goTo(4);
+}
+
+// ═══════════════════════════════════════
+// QR CODE (lightweight inline generator)
+// ═══════════════════════════════════════
+function drawQR(canvasId, text){
+  // Simple QR using a free CDN library loaded on demand
+  const canvas=document.getElementById(canvasId);
+  if(!canvas) return;
+  if(typeof QRCode !== 'undefined'){
+    QRCode.toCanvas(canvas, text, {width:140, margin:1, color:{dark:'#0f1f3d',light:'#ffffff'}}, ()=>{});
+  } else {
+    const script=document.createElement('script');
+    script.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+    script.onload=()=>{ QRCode.toCanvas(canvas, text, {width:140,margin:1,color:{dark:'#0f1f3d',light:'#ffffff'}},()=>{}); };
+    document.head.appendChild(script);
+  }
+}
+
+// ═══════════════════════════════════════
+// RENDER RESULTS
+// ═══════════════════════════════════════
+function renderResults(topTeams, topGifts, orphans){
+  const rankL=['✦ MEJOR COINCIDENCIA','2ª OPCIÓN','3ª OPCIÓN','4ª OPCIÓN'];
+  const n = userName || 'amigo/a';
+  const savedCode = saveProgress() || '----';
+
+  const orphanHtml = orphans.length ? `
+    <div class="orphan-alert">
+      <h4>🌟 Don sin equipo asignado</h4>
+      <p>${n}, tu don de <strong>${orphans.map(([k])=>GIFT_NAMES[k]).join(' y ')}</strong> es poderoso y merece ser canalizado. Habla con un líder de Northwood sobre cómo usar este don — puede que estemos por iniciar un equipo que lo necesite.</p>
+    </div>` : '';
+
+  document.getElementById('resultsContent').innerHTML=`
+    <div class="result-hero">
+      <div class="result-hero-label">Resultados de ${userFullName} · Iglesia Northwood</div>
+      <div class="result-hero-title">${n}, tu don principal es: <span>${GIFT_NAMES[topGifts[0][0]]}</span></div>
+      <div class="result-hero-sub">Eneatipo ${primaryType} · ${ENNEA_TYPES[primaryType].name} · DISC ${discPrimary||'?'}${discSecondary||''}</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:22px;">
+      <div class="result-stat">
+        <div class="result-stat-val" style="font-size:28px;letter-spacing:-2px;">${primaryType}</div>
+        <div class="result-stat-lbl">Eneatipo</div>
+        <div style="font-size:10px;color:var(--text-soft);margin-top:3px;font-weight:600;">${ENNEA_TYPES[primaryType].name}</div>
+      </div>
+      <div class="result-stat">
+        <div class="result-stat-val" style="font-size:24px;letter-spacing:-1px;color:var(--dark);">${discPrimary||'?'}${discSecondary||''}</div>
+        <div class="result-stat-lbl">DISC</div>
+        <div style="font-size:10px;color:var(--text-soft);margin-top:3px;font-weight:600;">${discPrimary?DISC_NAMES[discPrimary]:''}</div>
+      </div>
+      <div class="result-stat">
+        <div class="result-stat-val" style="font-size:13px;padding-top:6px;line-height:1.3;">${GIFT_NAMES[topGifts[0][0]]}</div>
+        <div class="result-stat-lbl">Don #1</div>
+      </div>
+    </div>
+
+    <div class="gifts-summary">
+      <h3>Top 5 Dones Espirituales de ${n}</h3>
+      ${topGifts.map(([k,v],i)=>`
+        <div class="top-gift-row">
+          <div class="gift-rank-num">${i+1}</div>
+          <div class="gift-name-full">${GIFT_NAMES[k]}</div>
+          <div class="gift-bar-bg"><div class="gift-bar-fill" style="width:${Math.round(v/13.5*100)}%"></div></div>
+          <div class="gift-score-val">${v.toFixed(1)}</div>
+        </div>`).join('')}
+    </div>
+
+    ${orphanHtml}
+
+    <div class="teams-section-label">
+      <div class="section-label">Equipos Compatibles</div>
+      <h2 class="section-title">${n}, estos son tus ministerios <span>ideales</span></h2>
+    </div>
+
+    <div class="teams-grid">
+      ${topTeams.map((t,i)=>`
+        <div class="team-card rank-${i+1}">
+          <div class="team-left">
+            <div class="team-badge">${t.emoji}</div>
+            <div class="match-score">
+              <div class="match-pct">${t.score}%</div>
+              <div class="match-pct-label">MATCH</div>
+            </div>
+          </div>
+          <div class="team-info">
+            <div class="team-rank">${rankL[i]}</div>
+            <div class="team-name">${t.name}</div>
+            <div class="team-desc">${t.desc}</div>
+            <div class="team-gifts">${t.gifts.map(g=>`<span class="gift-tag">${GIFT_NAMES[g]}</span>`).join('')}</div>
+            <div class="team-why">💡 ${t.why}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+
+    <div class="verse-box">
+      <p class="verse-text">"Dios, de su gran variedad de dones espirituales, les ha dado un don a cada uno de ustedes. Úsenlos bien para servirse los unos a los otros."</p>
+      <p class="verse-ref">1 Pedro 4:10</p>
+    </div>
+
+    <div class="cta-card">
+      <div class="accent-line"></div>
+      <h3>¿Qué sigue, ${n}?</h3>
+      <p>Habla con un líder de Iglesia Northwood sobre unirte al equipo que más te llamó la atención. ¡Ilumina tu comunidad — tus dones son necesarios aquí!</p>
+    </div>
+
+    <div class="qr-card">
+      <h3>Código QR de tus resultados</h3>
+      <canvas id="qrCanvas"></canvas>
+      <p class="qr-hint">Muéstrale este QR a un líder para que vea tu perfil completo.</p>
+    </div>
+
+    <div class="export-card">
+      <h3>Guarda o comparte tus resultados</h3>
+      <div class="export-row">
+        <button class="btn-export btn-export-pdf" onclick="downloadPDF()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          Bajar como PDF
+        </button>
+        <button class="btn-export btn-export-email" onclick="openEmailModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Enviar por Email
+        </button>
+      </div>
+    </div>
+
+    <div class="save-card" style="margin-top:0;">
+      <h4>Tu código de progreso</h4>
+      <div class="save-code">${savedCode}</div>
+      <p class="save-hint">Guarda este código para retomar la evaluación si la interrumpes.</p>
+    </div>
+
+    <div class="restart-row">
+      <button class="btn-restart" onclick="restart()">↺ Hacer la evaluación de nuevo</button>
+    </div>`;
+
+  // Generate QR after DOM is ready
+  setTimeout(()=>{
+    const qrText=`Northwood | ${userFullName} | E:${primaryType}/${secondaryType} | Dones:${topGifts.slice(0,3).map(([k])=>k).join(',')} | Equipo:${topTeams[0]?.name||''}`;
+    drawQR('qrCanvas', qrText);
+  }, 100);
+}
+
+// ═══════════════════════════════════════
+// PDF & EMAIL
+// ═══════════════════════════════════════
+function downloadPDF(){
+  const ph=document.createElement('div');ph.className='print-header';ph.id='tmpPH';
+  ph.innerHTML=`<div style="width:36px;height:36px;border-radius:50%;background:#00babc;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 30 30" fill="none" width="20" height="20"><circle cx="15" cy="15" r="13" stroke="white" stroke-width="1.5" fill="none"/><line x1="15" y1="5" x2="15" y2="25" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="13" x2="21" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div><div><strong style="font-size:13px;font-weight:800;color:#00babc;text-transform:uppercase;letter-spacing:2px;display:block;">Iglesia Northwood</strong><span style="font-size:11px;color:#7a7d7d;">${userFullName} · Descubre Tu Equipo · Resultados Eneagrama</span></div>`;
+  document.getElementById('resultsContent').insertBefore(ph,document.getElementById('resultsContent').firstChild);
+  window.print();
+  setTimeout(()=>{document.getElementById('tmpPH')?.remove();},1000);
+}
+function openEmailModal(){
+  document.getElementById('senderName').value=userFullName;
+  document.getElementById('emailModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeEmailModal(){document.getElementById('emailModal').classList.remove('open');document.body.style.overflow='';}
+
+function sendEmail(){
+  const name=document.getElementById('senderName').value.trim();
+  const recipient=document.getElementById('recipientEmail').value.trim();
+  const note=document.getElementById('emailNote').value.trim();
+  if(!recipient){document.getElementById('recipientEmail').focus();document.getElementById('recipientEmail').style.borderColor='var(--orange)';return;}
+  document.getElementById('recipientEmail').style.borderColor='';
+  const top5=Object.entries(rawGiftScores).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const subject=encodeURIComponent(`Resultados Eneagrama – ${name||userFullName} | Iglesia Northwood`);
+  const body=encodeURIComponent(
+`¡Hola!
+
+${name||userFullName} ha completado la evaluación del Eneagrama y Dones Espirituales en Iglesia Northwood.
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+PERFIL DEL ENEAGRAMA
+━━━━━━━━━━━━━━━━━━━━━━━━
+Eneatipo Principal: ${primaryType} — ${ENNEA_TYPES[primaryType].name}
+Ala Secundaria: ${secondaryType} — ${ENNEA_TYPES[secondaryType].name}
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+TOP 5 DONES ESPIRITUALES
+━━━━━━━━━━━━━━━━━━━━━━━━
+${top5.map(([k,v],i)=>`${i+1}. ${GIFT_NAMES[k]} (${v}/12)`).join('\n')}
+
+Orden de prioridad: ${giftSortOrder.map(k=>GIFT_NAMES[k]).join(' → ')}
+
+${note?'━━━━━━━━━━━━━━━━━━━━━━━━\nMENSAJE\n━━━━━━━━━━━━━━━━━━━━━━━━\n'+note+'\n':''}
+━━━━━━━━━━━━━━━━━━━━━━━━
+Iglesia Northwood · Ilumina tu comunidad
+`);
+  window.location.href=`mailto:${recipient}?subject=${subject}&body=${body}`;
+  closeEmailModal();
+}
+
+function restart(){
+  userName=''; userFullName='';
+  enneaAnswers=new Array(54).fill(null);
+  motivAnswers=new Array(9).fill(null);
+  tiebreakChoice=null; primaryType=null; secondaryType=null;
+  discAnswers=new Array(8).fill(null);
+  discPrimary=null; discSecondary=null; discTiebreakChoice=null;
+  giftAnswers=new Array(72).fill(null);
+  giftSortOrder=[]; rawGiftScores={};
+  document.getElementById('inputFirstName').value='';
+  document.getElementById('inputLastName').value='';
+  buildEnnea(); buildDisc1d(); buildGifts();
+  goTo('Name');
+}
+
+document.getElementById('emailModal').addEventListener('click',function(e){if(e.target===this)closeEmailModal();});
 
 // ═══════════════════════════════════════
 // BUILD ENNEAGRAM TEST
@@ -934,13 +1441,13 @@ function computeEnneaResult(){
 
   primaryType=p; secondaryType=s;
 
-  // If top two are within 2 points, show tie-breaker
+  // If top two are within 2 points, show ennea tie-breaker first, then DISC
   if(diff<=2){
     buildTiebreak(p,s);
     goTo('1c');
   } else {
-    renderProfile(scores);
-    goTo(2);
+    buildDisc1d();
+    goTo('1d');
   }
 }
 
@@ -973,17 +1480,10 @@ function selectTiebreak(t){
 
 function submitTiebreak(){
   if(!tiebreakChoice){document.getElementById('tiebreakVal').style.display='block';return;}
-  // Apply the tie-break choice
   const other=tiebreakChoice===primaryType?secondaryType:primaryType;
-  primaryType=tiebreakChoice;
-  secondaryType=other;
-  // Rebuild scores to pass to renderProfile
-  const scores={};
-  for(let t=1;t<=9;t++) scores[t]=0;
-  ENNEA_Q.forEach((item,i)=>{scores[item.t]+=(enneaAnswers[i]||0);});
-  motivAnswers.forEach(t=>{if(t) scores[t]+=3;});
-  renderProfile(scores);
-  goTo(2);
+  primaryType=tiebreakChoice; secondaryType=other;
+  buildDisc1d();
+  goTo('1d');
 }
 
 // ═══════════════════════════════════════
@@ -992,35 +1492,67 @@ function submitTiebreak(){
 function renderProfile(scores){
   const p=primaryType,s=secondaryType;
   const data=ENNEA_TYPES[p];
-  document.getElementById('profileTitle').innerHTML=`Eneatipo ${p} — <span>${data.name}</span>`;
+  const n=userName||'';
+  const discLine=discPrimary?` · DISC: ${discPrimary}${discSecondary?discSecondary:''}`:'' ;
+  document.getElementById('profileTitle').innerHTML=`${n?n+', tu':' Tu'} perfil: <span>E${p} · DISC ${discPrimary||'?'}${discSecondary||''}</span>`;
+  document.getElementById('profileDesc')?.remove();
 
   const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
   const maxScore=sorted[0][1];
 
+  // DISC score bars for profile page
+  const discScores={D:0,I:0,S:0,C:0};
+  DISC_Q.forEach((item,i)=>{discScores[item.letter]+=(discAnswers[i]||0);});
+  const discSorted=Object.entries(discScores).sort((a,b)=>b[1]-a[1]);
+
   let html=`
   <div class="ennea-type-hero">
-    <div class="ennea-type-num">${p}</div>
-    <div class="ennea-type-name">${data.name}</div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;flex-wrap:wrap;">
+      <div>
+        <div class="ennea-type-num" style="margin-bottom:0;">${p}</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-soft);">Eneagrama</div>
+      </div>
+      <div style="font-size:28px;color:var(--border);font-weight:300;">·</div>
+      <div>
+        <div class="ennea-type-num" style="color:var(--dark);margin-bottom:0;">${discPrimary||'?'}${discSecondary||''}</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-soft);">DISC</div>
+      </div>
+    </div>
+    <div class="ennea-type-name">${data.name} · ${discPrimary?DISC_NAMES[discPrimary]:''}</div>
     <div class="ennea-type-alias">${data.alias}</div>
     <div class="ennea-type-desc">${data.desc}</div>
   </div>
 
-  <div class="ennea-scores-card">
-    <h3>Tus puntajes por eneatipo</h3>
-    ${sorted.map(([t,v])=>`
-      <div class="ennea-score-row">
-        <div class="ennea-score-num" style="background:${ENNEA_TYPES[parseInt(t)].color};">${t}</div>
-        <div class="ennea-score-label">${ENNEA_TYPES[parseInt(t)].name}</div>
-        <div class="ennea-score-bar-bg">
-          <div class="ennea-score-bar-fill" style="width:${Math.round(v/maxScore*100)}%;background:${parseInt(t)===p?'var(--teal)':'var(--dark)'};"></div>
-        </div>
-        <div class="ennea-score-val" style="color:${parseInt(t)===p?'var(--teal)':'var(--dark)'};">${v}</div>
-      </div>`).join('')}
+  <div class="result-cols" style="margin-bottom:16px;">
+    <div class="ennea-scores-card" style="margin-bottom:0;">
+      <h3>Puntajes Eneagrama</h3>
+      ${sorted.map(([t,v])=>`
+        <div class="ennea-score-row">
+          <div class="ennea-score-num" style="background:${ENNEA_TYPES[parseInt(t)].color};">${t}</div>
+          <div class="ennea-score-label" style="font-size:11px;">${ENNEA_TYPES[parseInt(t)].name}</div>
+          <div class="ennea-score-bar-bg" style="width:60px;">
+            <div class="ennea-score-bar-fill" style="width:${Math.round(v/maxScore*100)}%;background:${parseInt(t)===p?'var(--teal)':'var(--dark)'};"></div>
+          </div>
+          <div class="ennea-score-val" style="color:${parseInt(t)===p?'var(--teal)':'var(--dark)'};">${v}</div>
+        </div>`).join('')}
+    </div>
+    <div class="ennea-scores-card" style="margin-bottom:0;">
+      <h3>Puntajes DISC</h3>
+      ${discSorted.map(([l,v])=>`
+        <div class="ennea-score-row">
+          <div class="ennea-score-num" style="background:${l===discPrimary?'var(--teal)':'var(--dark)'};font-family:Helvetica,sans-serif;">${l}</div>
+          <div class="ennea-score-label" style="font-size:11px;">${DISC_NAMES[l]}</div>
+          <div class="ennea-score-bar-bg" style="width:60px;">
+            <div class="ennea-score-bar-fill" style="width:${Math.round(v/8*100)}%;background:${l===discPrimary?'var(--teal)':'var(--dark)'};"></div>
+          </div>
+          <div class="ennea-score-val" style="color:${l===discPrimary?'var(--teal)':'var(--dark)'};">${v}</div>
+        </div>`).join('')}
+    </div>
   </div>
 
   <div class="wings-card">
-    <h4>🔗 Ala secundaria — Eneatipo ${s}: ${ENNEA_TYPES[s].name}</h4>
-    <p>${ENNEA_TYPES[s].alias}. Tu segunda tendencia más fuerte complementa tu tipo principal y añade matices únicos a tu personalidad.</p>
+    <h4>🔗 Ala secundaria — Eneatipo ${s}: ${ENNEA_TYPES[s].name} · DISC secundario: ${discSecondary?DISC_NAMES[discSecondary]:''}</h4>
+    <p>${ENNEA_TYPES[s].alias}. Tu segunda tendencia complementa tu tipo principal y añade matices únicos a tu personalidad.</p>
   </div>
 
   <div class="tips-card">
@@ -1148,225 +1680,160 @@ function renderSortList(){
   });
 }
 
+
 // ═══════════════════════════════════════
-// CALCULATE RESULTS
+// DISC DATA & FUNCTIONS
 // ═══════════════════════════════════════
-function calculateResults(){
-  // Apply prioritization bonuses to gift scores
-  const adjustedScores={...rawGiftScores};
-  giftSortOrder.forEach((k,i)=>{
-    adjustedScores[k]+=GIFT_SORT_BONUSES[i]||0;
-  });
+const DISC_NAMES = {D:'Dominante', I:'Influyente', S:'Estable', C:'Concienzudo/a'};
+const DISC_DESCS = {
+  D:'Directo, decidido, orientado a resultados. Tomas la iniciativa y no temes el conflicto.',
+  I:'Entusiasta, sociable, optimista. Conectas fácilmente con personas y las motivas.',
+  S:'Confiable, paciente, constante. Eres el apoyo del equipo y valoras la armonía.',
+  C:'Preciso, analítico, detallista. Buscas calidad y exactitud en todo lo que haces.'
+};
 
-  const sorted=Object.entries(adjustedScores).sort((a,b)=>b[1]-a[1]);
+// 8 DISC questions: indices 0-1=D, 2-3=I, 4-5=S, 6-7=C
+const DISC_Q = [
+  {letter:'D', q:'Cuando hay un problema en un grupo, generalmente soy yo quien toma el control y decide qué hacer.'},
+  {letter:'D', q:'Prefiero actuar rápido y ajustar después, que esperar a tener todos los detalles antes de moverme.'},
+  {letter:'I', q:'Me resulta fácil hablar con personas que acabo de conocer y hacer que se sientan cómodos.'},
+  {letter:'I', q:'En reuniones o grupos, tiendo a ser uno de los que más habla y anima a los demás.'},
+  {letter:'S', q:'Prefiero un ambiente predecible y consistente antes que uno lleno de cambios constantes.'},
+  {letter:'S', q:'Cuando alguien del equipo tiene dificultades, naturalmente me acerco a apoyarlo sin que me lo pidan.'},
+  {letter:'C', q:'Antes de entregarle algo a alguien, lo reviso varias veces para asegurarme de que está correcto.'},
+  {letter:'C', q:'Me siento incómodo/a cuando las reglas o procedimientos no están claramente definidos.'}
+];
+const DISC_SCALE = ['Casi\nnunca','Rara\nvez','Con\nfrecuencia','Muy\ncierto'];
 
-  const GIFT_W={1:[1],2:[0.60,0.40],3:[0.50,0.30,0.20],4:[0.40,0.30,0.20,0.10]};
-  const ENNEA_W={1:[1],2:[0.60,0.40],3:[0.50,0.30,0.20],4:[0.40,0.30,0.20,0.10]};
-
-  const teamScores=TEAMS.map(t=>{
-    let sc=0;
-    // Gift score (0-55pts) — max gift score now ~13.5 with bonuses
-    const gw=GIFT_W[Math.min(t.gifts.length,4)]||GIFT_W[4];
-    const maxGift=13.5;
-    t.gifts.forEach((g,i)=>{sc+=(adjustedScores[g]/maxGift)*55*(gw[i]??gw[gw.length-1]);});
-    // Eneatype score (0-25pts) weighted by position
-    const ew=ENNEA_W[Math.min((t.eneagramas||[]).length,4)]||ENNEA_W[4];
-    let es=0;
-    (t.eneagramas||[]).forEach((e,i)=>{
-      if(e===primaryType)   es+=25*(ew[i]??ew[ew.length-1]);
-      if(e===secondaryType) es+=25*(ew[i]??ew[ew.length-1])*0.4;
+function buildDisc1d(){
+  const wrap=document.getElementById('discContainer');
+  if(!wrap) return;
+  wrap.innerHTML='';
+  // Group by letter for visual separation
+  const groups={D:[],I:[],S:[],C:[]};
+  DISC_Q.forEach((item,i)=>groups[item.letter].push({...item,idx:i}));
+  Object.entries(groups).forEach(([letter,qs])=>{
+    const groupDiv=document.createElement('div');
+    groupDiv.style.cssText='margin-bottom:20px;';
+    groupDiv.innerHTML=`<div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid var(--teal);">Tipo ${letter} — ${DISC_NAMES[letter]}</div>`;
+    qs.forEach(item=>{
+      const d=document.createElement('div');
+      d.className='q-card';
+      d.style.marginBottom='8px';
+      d.innerHTML=`
+        <div class="q-text">${item.q}</div>
+        <div class="q-opts">
+          ${[1,2,3,4].map((v,vi)=>`
+            <div class="q-opt${discAnswers[item.idx]===v?' selected':''}" onclick="setDisc1d(${item.idx},${v},this)">
+              <span class="on">${v}</span>${DISC_SCALE[vi]}
+            </div>`).join('')}
+        </div>`;
+      groupDiv.appendChild(d);
     });
-    sc+=Math.min(es,25);
-    // Top gift bonus
-    if(t.gifts[0]===sorted[0][0]) sc+=20;
-    else if(t.gifts.includes(sorted[0][0])) sc+=10;
-    // Eneatype gift affinity bonus
-    const enneaGifts=ENNEA_TYPES[primaryType]?.gifts||[];
-    enneaGifts.forEach((g,gi)=>{if(t.gifts.includes(g)) sc+=6*(gi===0?1:gi===1?0.5:0.25);});
-    return{...t,score:Math.min(99,Math.round(sc))};
-  }).sort((a,b)=>b.score-a.score);
-
-  renderResults(teamScores.slice(0,4),sorted.slice(0,5));
-  goTo(4);
+    wrap.appendChild(groupDiv);
+  });
+  updateDiscProg();
 }
 
-// ═══════════════════════════════════════
-// RENDER RESULTS
-// ═══════════════════════════════════════
-function renderResults(topTeams,topGifts){
-  const rankL=['✦ MEJOR COINCIDENCIA','2ª OPCIÓN','3ª OPCIÓN','4ª OPCIÓN'];
-  document.getElementById('resultsContent').innerHTML=`
-    <div class="result-hero">
-      <div class="result-hero-label">Tus Resultados · Iglesia Northwood · Versión Eneagrama</div>
-      <div class="result-hero-title">Don principal: <span>${GIFT_NAMES[topGifts[0][0]]}</span></div>
-      <div class="result-hero-sub">Eneatipo ${primaryType} · ${ENNEA_TYPES[primaryType].name} · Ala ${secondaryType} · ${ENNEA_TYPES[secondaryType].name}</div>
+function setDisc1d(idx,val,el){
+  discAnswers[idx]=val;
+  el.closest('.q-opts').querySelectorAll('.q-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  updateDiscProg();
+  document.getElementById('disc1dVal').style.display='none';
+}
+
+function updateDiscProg(){
+  const done=discAnswers.filter(a=>a!==null).length;
+  document.getElementById('discCount').textContent=done;
+  document.getElementById('discProg').style.width=(done/8*100)+'%';
+}
+
+function submitDisc1d(){
+  if(discAnswers.includes(null)){
+    document.getElementById('disc1dVal').style.display='block';
+    return;
+  }
+  computeDiscResult();
+}
+
+function computeDiscResult(){
+  // Tally scores per letter
+  const scores={D:0,I:0,S:0,C:0};
+  DISC_Q.forEach((item,i)=>{ scores[item.letter]+=(discAnswers[i]||0); });
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const p=sorted[0][0], s=sorted[1][0];
+  const diff=sorted[0][1]-sorted[1][1];
+  discPrimary=p; discSecondary=s;
+
+  if(diff<=1){
+    // Tie-breaker needed
+    buildDiscTiebreak(p,s,sorted);
+    goTo('1e');
+  } else {
+    // No tie — go directly to profile
+    const enScores=buildEnneaScores();
+    renderProfile(enScores);
+    goTo(2);
+  }
+}
+
+function buildDiscTiebreak(a,b,sorted){
+  discTiebreakChoice=null;
+  const wrap=document.getElementById('discTiebreakContainer');
+  // Show all 4 options for the tiebreak question
+  wrap.innerHTML=`
+    <div style="background:rgba(0,186,188,0.06);border-left:3px solid var(--teal);padding:14px 16px;margin-bottom:20px;border-radius:0 4px 4px 0;font-size:13.5px;color:var(--text-body);line-height:1.65;">
+      En tu día a día, <strong style="color:var(--black)">¿qué te describe mejor?</strong>
     </div>
-    <div class="result-cols">
-      <div class="result-stat">
-        <div class="result-stat-val" style="font-size:32px;letter-spacing:-2px;">${primaryType}</div>
-        <div class="result-stat-lbl">Eneatipo Principal</div>
-        <div style="font-size:11px;color:var(--text-soft);margin-top:4px;font-weight:600;">${ENNEA_TYPES[primaryType].name}</div>
-      </div>
-      <div class="result-stat">
-        <div class="result-stat-val" style="font-size:32px;letter-spacing:-2px;color:var(--dark);">${secondaryType}</div>
-        <div class="result-stat-lbl">Ala Secundaria</div>
-        <div style="font-size:11px;color:var(--text-soft);margin-top:4px;font-weight:600;">${ENNEA_TYPES[secondaryType].name}</div>
-      </div>
-    </div>
-    <div class="result-stat" style="margin-bottom:22px;">
-      <div class="result-stat-val" style="font-size:16px;padding-top:5px;">${GIFT_NAMES[topGifts[0][0]]}</div>
-      <div class="result-stat-lbl">Don Primario</div>
-    </div>
-    <div class="gifts-summary">
-      <h3>Top 5 Dones Espirituales</h3>
-      ${topGifts.map(([k,v],i)=>`
-        <div class="top-gift-row">
-          <div class="gift-rank-num">${i+1}</div>
-          <div class="gift-name-full">${GIFT_NAMES[k]}</div>
-          <div class="gift-bar-bg"><div class="gift-bar-fill" style="width:${Math.round(v/13.5*100)}%"></div></div>
-          <div class="gift-score-val">${v.toFixed(1)}</div>
-        </div>`).join('')}
-    </div>
-    <div class="teams-section-label">
-      <div class="section-label">Equipos Compatibles</div>
-      <h2 class="section-title">Tus ministerios <span>ideales</span></h2>
-    </div>
-    <div class="teams-grid">
-      ${topTeams.map((t,i)=>`
-        <div class="team-card rank-${i+1}">
-          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;">
-            <div class="team-badge">${t.emoji}</div>
-            <div class="match-score">
-              <div class="match-pct">${t.score}%</div>
-              <div class="match-pct-label">MATCH</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      ${['D','I','S','C'].map(l=>`
+        <div class="motiv-card${discTiebreakChoice===l?' selected':''}" onclick="selectDiscTb('${l}',this)" style="padding:16px 18px;">
+          <div class="motiv-top">
+            <div class="motiv-num" style="background:var(--dark);font-size:16px;font-weight:800;width:32px;height:32px;">${l}</div>
+            <div class="motiv-body">
+              <div class="motiv-title">${DISC_NAMES[l]}</div>
+              <div class="motiv-desc">${DISC_DESCS[l]}</div>
+            </div>
+            <div class="motiv-check">
+              <svg viewBox="0 0 12 12" fill="none"><polyline points="1,6 4.5,9.5 11,2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
           </div>
-          <div class="team-info">
-            <div class="team-rank">${rankL[i]}</div>
-            <div class="team-name">${t.name}</div>
-            <div class="team-desc">${t.desc}</div>
-            <div class="team-gifts">${t.gifts.map(g=>`<span class="gift-tag">${GIFT_NAMES[g]}</span>`).join('')}</div>
-          </div>
         </div>`).join('')}
-    </div>
-    <div class="verse-box">
-      <p class="verse-text">"Dios, de su gran variedad de dones espirituales, les ha dado un don a cada uno de ustedes. Úsenlos bien para servirse los unos a los otros."</p>
-      <p class="verse-ref">1 Pedro 4:10</p>
-    </div>
-    <div class="cta-card">
-      <div class="accent-line"></div>
-      <h3>¿Qué sigue?</h3>
-      <p>Habla con un líder de Iglesia Northwood sobre unirte al equipo que más te llamó la atención. ¡Ilumina tu comunidad — tus dones son necesarios aquí!</p>
-    </div>
-    <div class="export-card">
-      <h3>Guarda o comparte tus resultados</h3>
-      <div class="export-row">
-        <button class="btn-export btn-export-pdf" onclick="downloadPDF()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-          Bajar como PDF
-        </button>
-        <button class="btn-export btn-export-email" onclick="openEmailModal()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Enviar por Email
-        </button>
-      </div>
-    </div>
-    <div class="restart-row">
-      <button class="btn-restart" onclick="restart()">↺ Hacer la evaluación de nuevo</button>
     </div>`;
 }
 
-// ═══════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════
-const SEC_IDS = [0,'1b','1c',2,3,'3b',4];
-// Map section IDs to progress % and label indices
-const SEC_PROGRESS = {0:0, '1b':20, '1c':25, 2:40, 3:55, '3b':75, 4:100};
-const SEC_LABEL = {0:0, 1:1, '1b':1, '1c':1, 2:2, 3:3, '3b':3, 4:4};
-
-function goTo(n){
-  document.getElementById('sec'+currentSec).classList.remove('active');
-  document.getElementById('sec'+n).classList.add('active');
-  currentSec=n;
-  // Progress bar
-  const pct={0:0,1:15,'1b':30,'1c':35,2:50,3:65,'3b':80,4:100}[n]||0;
-  document.getElementById('progressFill').style.width=pct+'%';
-  // Labels
-  const labelIdx={0:0,1:1,'1b':1,'1c':1,2:2,3:3,'3b':3,4:4}[n]||0;
-  ['lbl0','lbl1','lbl2','lbl3','lbl4'].forEach((id,i)=>
-    document.getElementById(id).classList.toggle('active',i<=labelIdx));
-  window.scrollTo({top:0,behavior:'smooth'});
+function selectDiscTb(letter, el){
+  discTiebreakChoice=letter;
+  document.querySelectorAll('#discTiebreakContainer .motiv-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('discTbVal').style.display='none';
 }
 
-function backFromProfile(){
-  // Go back to tiebreak if it was shown, else motiv
-  if(tiebreakChoice!==null) goTo('1c');
-  else goTo('1b');
+function submitDiscTiebreak(){
+  if(!discTiebreakChoice){ document.getElementById('discTbVal').style.display='block'; return; }
+  discPrimary=discTiebreakChoice;
+  // Secondary = highest remaining score that isn't primary
+  const scores={D:0,I:0,S:0,C:0};
+  DISC_Q.forEach((item,i)=>{ scores[item.letter]+=(discAnswers[i]||0); });
+  const others=Object.entries(scores).filter(([k])=>k!==discPrimary).sort((a,b)=>b[1]-a[1]);
+  discSecondary=others[0][0];
+  const enScores=buildEnneaScores();
+  renderProfile(enScores);
+  goTo(2);
 }
 
-// ═══════════════════════════════════════
-// PDF & EMAIL
-// ═══════════════════════════════════════
-function downloadPDF(){
-  const ph=document.createElement('div');ph.className='print-header';ph.id='tmpPH';
-  ph.innerHTML=`<div style="width:36px;height:36px;border-radius:50%;background:#00babc;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 30 30" fill="none" width="20" height="20"><circle cx="15" cy="15" r="13" stroke="white" stroke-width="1.5" fill="none"/><line x1="15" y1="5" x2="15" y2="25" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="13" x2="21" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div><div><strong style="font-size:13px;font-weight:800;color:#00babc;text-transform:uppercase;letter-spacing:2px;display:block;">Iglesia Northwood</strong><span style="font-size:11px;color:#7a7d7d;">Descubre Tu Equipo · Resultados Eneagrama</span></div>`;
-  document.getElementById('resultsContent').insertBefore(ph,document.getElementById('resultsContent').firstChild);
-  window.print();
-  setTimeout(()=>{document.getElementById('tmpPH')?.remove();},1000);
-}
-function openEmailModal(){document.getElementById('emailModal').classList.add('open');document.body.style.overflow='hidden';}
-function closeEmailModal(){document.getElementById('emailModal').classList.remove('open');document.body.style.overflow='';}
-
-function sendEmail(){
-  const name=document.getElementById('senderName').value.trim();
-  const recipient=document.getElementById('recipientEmail').value.trim();
-  const note=document.getElementById('emailNote').value.trim();
-  if(!recipient){document.getElementById('recipientEmail').focus();document.getElementById('recipientEmail').style.borderColor='var(--orange)';return;}
-  document.getElementById('recipientEmail').style.borderColor='';
-  const top5=Object.entries(rawGiftScores).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  const subjectName=name||'Alguien de la congregación';
-  const subject=encodeURIComponent(`Resultados Eneagrama – ${subjectName} | Iglesia Northwood`);
-  const body=encodeURIComponent(
-`¡Hola!
-
-${name?name+' ha completado':'Se ha completado'} la evaluación del Eneagrama y Dones Espirituales en Iglesia Northwood.
-
-━━━━━━━━━━━━━━━━━━━━━━━━
-PERFIL DEL ENEAGRAMA
-━━━━━━━━━━━━━━━━━━━━━━━━
-Eneatipo Principal: ${primaryType} — ${ENNEA_TYPES[primaryType].name}
-Ala Secundaria: ${secondaryType} — ${ENNEA_TYPES[secondaryType].name}
-
-━━━━━━━━━━━━━━━━━━━━━━━━
-TOP 5 DONES ESPIRITUALES
-━━━━━━━━━━━━━━━━━━━━━━━━
-${top5.map(([k,v],i)=>`${i+1}. ${GIFT_NAMES[k]} (${v}/12)`).join('\n')}
-
-Orden de prioridad personal: ${giftSortOrder.map(k=>GIFT_NAMES[k]).join(' → ')}
-
-${note?'━━━━━━━━━━━━━━━━━━━━━━━━\nMENSAJE\n━━━━━━━━━━━━━━━━━━━━━━━━\n'+note+'\n':''}
-━━━━━━━━━━━━━━━━━━━━━━━━
-Iglesia Northwood · Ilumina tu comunidad
-Generado con la herramienta Descubre Tu Equipo (Versión Eneagrama)
-`);
-  window.location.href=`mailto:${recipient}?subject=${subject}&body=${body}`;
-  closeEmailModal();
+function buildEnneaScores(){
+  const scores={};
+  for(let t=1;t<=9;t++) scores[t]=0;
+  ENNEA_Q.forEach((item,i)=>{scores[item.t]+=(enneaAnswers[i]||0);});
+  motivAnswers.forEach(t=>{if(t) scores[t]+=3;});
+  return scores;
 }
 
-function restart(){
-  enneaAnswers=new Array(54).fill(null);
-  motivAnswers=new Array(9).fill(null);
-  tiebreakChoice=null;
-  primaryType=null;secondaryType=null;
-  giftAnswers=new Array(72).fill(null);
-  giftSortOrder=[];rawGiftScores={};
-  buildEnnea();buildGifts();goTo(0);
-}
-
-document.getElementById('emailModal').addEventListener('click',function(e){if(e.target===this)closeEmailModal();});
 
 // INIT
-(async()=>{await loadTeams();buildEnnea();buildGifts();})();
+(async()=>{ await loadTeams(); buildEnnea(); buildDisc1d(); buildGifts(); })();
 </script>
 </body>
 </html>
