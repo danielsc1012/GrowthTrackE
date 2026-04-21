@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Descubre en qué equipo de ministerio Dios te diseñó para servir en Iglesia Northwood. Evaluación de Eneagrama, DISC y Dones Espirituales.">
+  <meta property="og:title" content="Descubre Tu Equipo Ideal – Iglesia Northwood">
+  <meta property="og:description" content="Completa la evaluación de Eneagrama, DISC y Dones Espirituales para encontrar el ministerio donde Dios te diseñó para servir.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://static.wixstatic.com/media/5f6088_64487e46a8b84c14a8a6122bf289a348~mv2.png/v1/crop/x_208,y_90,w_1090,h_1090/fill/w_186,h_186,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/N%2B%20Logo%20for%20Light%20BG.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Descubre Tu Equipo Ideal – Iglesia Northwood">
+  <meta name="twitter:description" content="Evaluación de Eneagrama, DISC y Dones Espirituales para encontrar tu ministerio ideal.">
 <title data-i18n="page_title">Descubre Tu Equipo – Iglesia Northwood</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -335,7 +343,7 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
     </div>
     <div class="header-text">
       <div class="logo-name">Iglesia Northwood</div>
-      <h1 data-i18n="header_h1">Descubre Tu<br><span data-i18n="header_h1_span">Equipo Ideal</span></h1>
+      <h1 id="headerH1">Descubre Tu<br><span id="headerH1Span">Equipo Ideal</span></h1>
       <p data-i18n="header_sub">Completa la evaluación para encontrar el ministerio donde Dios te diseñó para servir.</p>
     </div>
   </div>
@@ -993,7 +1001,7 @@ function startWithName(){
   const L = TRANSLATIONS[currentLang];
   const greeting = currentLang==='en' ? `Hi, <span>${fn}</span> — Design reveals destiny` : `Hola, <span>${fn}</span> — Diseño revela destino`;
   const subtext = currentLang==='en'
-    ? `${fn}, this assessment will use the Enneagram to discover your personality type and combine it with your spiritual gifts to find your ideal team at Iglesia Northwood.`
+    ? `${fn}, this assessment will use the Enneagram and DISC to discover your personality type and combine it with your spiritual gifts to find your ideal team at Iglesia Northwood.`
     : `${fn}, esta evaluación usará el Eneagrama y DISC para descubrir tu tipo de personalidad y combinarlo con tus dones espirituales para encontrar el equipo ideal para ti en Iglesia Northwood.`;
   document.getElementById('introTitle').innerHTML = greeting;
   document.getElementById('introDesc').textContent = subtext;
@@ -1405,8 +1413,8 @@ function renderResults(topTeams, topGifts, orphans, worshipMention=null){
 // ═══════════════════════════════════════
 function downloadPDF(){
   const subtitle = currentLang==='en'
-    ? `${userFullName} · Discover Your Team · Enneagram Results`
-    : `${userFullName} · Descubre Tu Equipo · Resultados Eneagrama`;
+    ? `${userFullName} · Discover Your Team · Iglesia Northwood`
+    : `${userFullName} · Descubre Tu Equipo · Iglesia Northwood`;
   const ph=document.createElement('div');ph.className='print-header';ph.id='tmpPH';
   ph.innerHTML=`<div style="width:36px;height:36px;border-radius:50%;background:#00babc;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 30 30" fill="none" width="20" height="20"><circle cx="15" cy="15" r="13" stroke="white" stroke-width="1.5" fill="none"/><line x1="15" y1="5" x2="15" y2="25" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="13" x2="21" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div><div><strong style="font-size:13px;font-weight:800;color:#00babc;text-transform:uppercase;letter-spacing:2px;display:block;">Iglesia Northwood</strong><span style="font-size:11px;color:#7a7d7d;">${subtitle}</span></div>`;
   document.getElementById('resultsContent').insertBefore(ph,document.getElementById('resultsContent').firstChild);
@@ -1432,14 +1440,14 @@ function sendEmail(){
   const top5=Object.entries(rawGiftScores).sort((a,b)=>b[1]-a[1]).slice(0,5);
   const greeting = currentLang==='en' ? 'Hello!' : '¡Hola!';
   const intro = currentLang==='en'
-    ? `${name||userFullName} has completed the Enneagram and Spiritual Gifts assessment at Iglesia Northwood.`
-    : `${name||userFullName} ha completado la evaluación del Eneagrama y Dones Espirituales en Iglesia Northwood.`;
+    ? `${name||userFullName} has completed the Enneagram, DISC, and Spiritual Gifts assessment at Iglesia Northwood.`
+    : `${name||userFullName} ha completado la evaluación del Eneagrama, DISC y Dones Espirituales en Iglesia Northwood.`;
   const subject=encodeURIComponent(L.email_subject(name||userFullName));
   const sep='━━━━━━━━━━━━━━━━━━━━━━━━';
-  const giftsLines=top5.map(([k,v],i)=>(i+1)+'. '+giftNamesL[k]+' ('+v+'/12)').join('\n');
+  const giftsLines=top5.map(([k,v],i)=>(i+1)+'. '+giftNamesL[k]+' — '+v.toFixed(1)).join('\n');
   const priorityLine=giftSortOrder.map(k=>giftNamesL[k]).join(' → ');
   const noteBlock=note?(sep+'\n'+L.email_msg_hdr+'\n'+sep+'\n'+note+'\n'):'';
-  const bodyTxt=greeting+'\n\n'+intro+'\n\n'+sep+'\n'+L.email_profile_hdr+'\n'+sep+'\n'+L.email_primary+' '+primaryType+' — '+typesL[primaryType].name+'\n'+L.email_secondary+' '+secondaryType+' — '+typesL[secondaryType].name+'\n\n'+sep+'\n'+L.email_gifts_hdr+'\n'+sep+'\n'+giftsLines+'\n\n'+L.email_priority+' '+priorityLine+'\n\n'+noteBlock+sep+'\n'+L.email_footer+'\n';
+  const bodyTxt=greeting+'\n\n'+intro+'\n\n'+sep+'\n'+L.email_profile_hdr+'\n'+sep+'\n'+L.email_primary+' '+primaryType+' — '+typesL[primaryType].name+'\n'+L.email_secondary+' '+secondaryType+' — '+typesL[secondaryType].name+'\n'+L.email_disc+' '+(discPrimary||'?')+(discSecondary||'')+' — '+(L.disc_names[discPrimary]||'')+'\n\n'+sep+'\n'+L.email_gifts_hdr+'\n'+sep+'\n'+giftsLines+'\n\n'+L.email_priority+' '+priorityLine+'\n\n'+noteBlock+sep+'\n'+L.email_footer+'\n';
   window.location.href=`mailto:${recipient}?subject=${subject}&body=${encodeURIComponent(bodyTxt)}`;
   closeEmailModal();
 }
@@ -2181,7 +2189,7 @@ const TRANSLATIONS = {
     // Email subject/body
     email_subject:(name)=>`Resultados Eneagrama – ${name} | Iglesia Northwood`,
     email_profile_hdr:'PERFIL DEL ENEAGRAMA',
-    email_primary:'Eneatipo Principal:', email_secondary:'Ala Secundaria:',
+    email_primary:'Eneatipo Principal:', email_secondary:'Ala Secundaria:', email_disc:'DISC:',
     email_gifts_hdr:'TOP 5 DONES ESPIRITUALES',
     email_priority:'Orden de prioridad:',
     email_msg_hdr:'MENSAJE',
@@ -2204,7 +2212,7 @@ const TRANSLATIONS = {
     prog_start:'Start', prog_ennea:'Enneagram', prog_disc:'DISC', prog_profile:'Your Profile', prog_gifts:'Gifts', prog_results:'Results',
     footer_tagline:'Illuminate your community',
     // Name screen
-    name_label:'Iglesia Northwood · Enneagram',
+    name_label:'Iglesia Northwood',
     name_title:'Welcome!', name_title_span:'What\'s your name?',
     name_desc:'Your name helps us personalize your experience throughout the assessment.',
     name_verse:'"For we are God\'s handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do."',
@@ -2343,7 +2351,7 @@ const TRANSLATIONS = {
     // Email
     email_subject:(name)=>`Enneagram Results – ${name} | Iglesia Northwood`,
     email_profile_hdr:'ENNEAGRAM PROFILE',
-    email_primary:'Primary Type:', email_secondary:'Secondary Wing:',
+    email_primary:'Primary Type:', email_secondary:'Secondary Wing:', email_disc:'DISC:',
     email_gifts_hdr:'TOP 5 SPIRITUAL GIFTS',
     email_priority:'Priority order:',
     email_msg_hdr:'MESSAGE',
@@ -2666,6 +2674,8 @@ function updateStaticSections() {
   safeAttr('resumeCodeInput','placeholder', L.resume_ph);
   safeText('secName .btn-resume', L.resume_btn);
   safeText('btnComenzar', L.btn_start);
+  // Header h1
+  safeHTML('headerH1', `${L.header_h1}<br><span id="headerH1Span">${L.header_h1_span}</span>`);
   // Intro screen
   safeText('sec0 .section-label', L.intro_label);
   safeHTML('sec0 .section-title', `${L.intro_title} <span>${L.intro_title_span}</span>`);
