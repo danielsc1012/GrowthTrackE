@@ -209,6 +209,10 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
 .team-why{font-size:12.5px;color:var(--teal-dark);font-weight:600;margin-top:9px;line-height:1.5;padding:8px 10px;background:rgba(0,186,188,0.06);border-radius:3px;border-left:3px solid var(--teal);}
 /* Orphan gift alert */
 .orphan-alert{background:rgba(241,93,44,0.07);border:1px solid rgba(241,93,44,0.2);border-left:4px solid var(--orange);border-radius:0 4px 4px 0;padding:14px 16px;margin-bottom:16px;}
+.worship-mention{display:flex;gap:14px;align-items:flex-start;background:rgba(0,186,188,0.06);border:1px solid rgba(0,186,188,0.25);border-left:4px solid var(--teal);border-radius:0 4px 4px 0;padding:14px 16px;margin-bottom:16px;}
+.worship-mention-icon{font-size:24px;flex-shrink:0;line-height:1;margin-top:2px;}
+.worship-mention-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:5px;}
+.worship-mention-text{font-size:13px;color:var(--text-body);line-height:1.6;}
 .orphan-alert h4{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
 .orphan-alert p{font-size:13px;color:var(--text-body);line-height:1.6;}
 /* QR box */
@@ -342,6 +346,7 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
     <div class="progress-labels">
       <span class="progress-label active" id="lbl0" data-i18n="prog_start">Inicio</span>
       <span class="progress-label" id="lbl1" data-i18n="prog_ennea">Eneagrama</span>
+      <span class="progress-label" id="lbl1d" data-i18n="prog_disc">DISC</span>
       <span class="progress-label" id="lbl2" data-i18n="prog_profile">Tu Perfil</span>
       <span class="progress-label" id="lbl3" data-i18n="prog_gifts">Dones</span>
       <span class="progress-label" id="lbl4" data-i18n="prog_results">Resultados</span>
@@ -360,7 +365,7 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
 <!-- SEC -1: NAME -->
 <div class="section active" id="secName">
   <div class="section-header">
-    <div class="section-label">Iglesia Northwood · Eneagrama</div>
+    <div class="section-label">Iglesia Northwood</div>
     <h2 class="section-title">¡Bienvenido/a!<br><span>¿Cómo te llamas?</span></h2>
     <p class="section-desc">Tu nombre nos ayuda a personalizar la experiencia a lo largo de la evaluación.</p>
   </div>
@@ -412,7 +417,7 @@ main{max-width:680px;margin:0 auto;padding:32px 20px 64px;}
   <div class="section-header">
     <div class="section-label">Bienvenido/a · Iglesia Northwood</div>
     <h2 class="section-title" id="introTitle">Diseño revela <span>destino</span></h2>
-    <p class="section-desc" id="introDesc">Esta versión usa el sistema del Eneagrama para descubrir tu tipo de personalidad y combinarlo con tus dones espirituales para encontrar tu equipo ideal en Iglesia Northwood.</p>
+    <p class="section-desc" id="introDesc">Esta evaluación usará el Eneagrama y DISC para descubrir tu tipo de personalidad y combinarlo con tus dones espirituales para encontrar tu equipo ideal en Iglesia Northwood.</p>
   </div>
   <div class="verse-box">
     <p class="verse-text">"Porque somos hechura de Dios, creados en Cristo Jesús para buenas obras, las cuales Dios dispuso de antemano a fin de que las pongamos en práctica."</p>
@@ -947,7 +952,7 @@ async function retryLoad(){await loadTeams();}
 const FALLBACK_TEAMS=[
   {id:'p1',emoji:'🎛️',name:'ProPresenter (Proyección)',desc:'Mantiene los servicios funcionando sin problemas con organización y confiabilidad detrás de escena.',gifts:['A','J','U'],eneagramas:[1,6],disc:['C','D']},
   {id:'p2',emoji:'💡',name:'Luces (Lightkey)',desc:'Usa habilidad artística para crear una atmósfera que apoya la adoración y la Palabra.',gifts:['C','J'],eneagramas:[4,7],disc:['I','C']},
-  {id:'p3',emoji:'🎶',name:'Adoración (Vocalistas/Instrumentistas)',desc:'Lleva a la iglesia a la presencia de Dios a través de la música y la expresión artística.',gifts:['R','F','T'],eneagramas:[4,2,7],disc:['I','D']},
+  {id:'p3',emoji:'🎶',name:'Adoración (Vocalistas/Instrumentistas)',desc:'Lleva a la iglesia a la presencia de Dios a través de la música y la expresión artística.',gifts:['R','F','T'],eneagramas:[4,2,7],disc:['I','S','D','C']},
   {id:'p4',emoji:'🎚️',name:'Adoración (Técnico de Sonido)',desc:'Administra sistemas complejos para que el mensaje y la adoración sean escuchados con claridad.',gifts:['A','M','U'],eneagramas:[1,5,6],disc:['C','S']},
   {id:'p5',emoji:'📸',name:'Fotografía',desc:'Cuenta la historia del trabajo de Dios en la iglesia a través de imágenes que inspiran y conectan.',gifts:['C','E','A'],eneagramas:[4,7,3],disc:['I','C']},
   {id:'p6',emoji:'👶',name:'Northwood Kids (Escuela Dominical)',desc:'Explica la Palabra de Dios sencillamente, cuida a los niños y discipula a la siguiente generación.',gifts:['V','S','O'],eneagramas:[2,9,6],disc:['S','I']},
@@ -989,7 +994,7 @@ function startWithName(){
   const greeting = currentLang==='en' ? `Hi, <span>${fn}</span> — Design reveals destiny` : `Hola, <span>${fn}</span> — Diseño revela destino`;
   const subtext = currentLang==='en'
     ? `${fn}, this assessment will use the Enneagram to discover your personality type and combine it with your spiritual gifts to find your ideal team at Iglesia Northwood.`
-    : `${fn}, esta evaluación usará el Eneagrama para descubrir tu tipo de personalidad y combinarlo con tus dones espirituales para encontrar el equipo ideal para ti en Iglesia Northwood.`;
+    : `${fn}, esta evaluación usará el Eneagrama y DISC para descubrir tu tipo de personalidad y combinarlo con tus dones espirituales para encontrar el equipo ideal para ti en Iglesia Northwood.`;
   document.getElementById('introTitle').innerHTML = greeting;
   document.getElementById('introDesc').textContent = subtext;
   goTo(0);
@@ -1136,8 +1141,8 @@ function goTo(n){
   currentSec = n;
   const pct={Name:0,0:5,1:15,'1b':28,'1c':32,'1d':38,'1e':42,2:50,3:65,'3b':80,4:100}[String(n)]||0;
   document.getElementById('progressFill').style.width=pct+'%';
-  const labelIdx={Name:0,0:0,1:1,'1b':1,'1c':1,'1d':1,'1e':1,2:2,3:3,'3b':3,4:4}[String(n)]||0;
-  ['lbl0','lbl1','lbl2','lbl3','lbl4'].forEach((id,i)=>
+  const labelIdx={Name:0,0:0,1:1,'1b':1,'1c':1,'1d':2,'1e':2,2:3,3:4,'3b':4,4:5}[String(n)]||0;
+  ['lbl0','lbl1','lbl1d','lbl2','lbl3','lbl4'].forEach((id,i)=>
     document.getElementById(id).classList.toggle('active',i<=labelIdx));
   personalizeSection(n);
   // Show/hide code widget: visible during assessment, hidden on results
@@ -1223,7 +1228,13 @@ function calculateResults(){
   const coveredGifts=new Set(TEAMS.flatMap(t=>t.gifts));
   const orphans=sorted.slice(0,3).filter(([k])=>!coveredGifts.has(k));
 
-  renderResults(teamScores.slice(0,4), sorted.slice(0,5), orphans);
+  // ── Adoración Vocalistas mention: show if R is in top 5 but team not in top 4
+  const top4names = new Set(teamScores.slice(0,4).map(t=>t.name));
+  const adoracionTeam = teamScores.find(t=>(t.name||'').includes('Vocalistas')||(t.name||'').includes('Vocales'));
+  const rInTop5 = sorted.slice(0,5).some(([k])=>k==='R');
+  const worshipMention = (rInTop5 && adoracionTeam && !top4names.has(adoracionTeam.name)) ? adoracionTeam : null;
+
+  renderResults(teamScores.slice(0,4), sorted.slice(0,5), orphans, worshipMention);
   goTo(4);
 }
 
@@ -1247,7 +1258,7 @@ function drawQR(canvasId, text){
 // ═══════════════════════════════════════
 // RENDER RESULTS
 // ═══════════════════════════════════════
-function renderResults(topTeams, topGifts, orphans){
+function renderResults(topTeams, topGifts, orphans, worshipMention=null){
   const L=TRANSLATIONS[currentLang];
   const giftNamesL = currentLang==='en' ? GIFT_NAMES_EN : GIFT_NAMES;
   const typesL = currentLang==='en' ? ENNEA_TYPES_EN : ENNEA_TYPES;
@@ -1260,6 +1271,16 @@ function renderResults(topTeams, topGifts, orphans){
     <div class="orphan-alert">
       <h4>${L.results_orphan_title}</h4>
       <p>${n}, ${L.results_orphan_body} <strong>${orphans.map(([k])=>giftNamesL[k]).join(currentLang==='en'?' and ':' y ')}</strong> ${L.results_orphan_suffix}</p>
+    </div>` : '';
+
+  const worshipHtml = worshipMention ? `
+    <div class="worship-mention">
+      <div class="worship-mention-icon">🎶</div>
+      <div class="worship-mention-body">
+        <div class="worship-mention-title">${currentLang==='en'?'Also compatible:':'También compatible:'} ${worshipMention.name}</div>
+        <div class="worship-mention-text">${currentLang==='en'?`${n}, your gift of Music & Worship shows a natural connection with this team. Although other teams ranked higher based on your full profile, consider this team if you feel called to worship ministry.`:`${n}, tu don de Música/Adoración muestra una conexión natural con este equipo. Aunque otros equipos tienen mayor compatibilidad con tu perfil completo, considera este equipo si sientes el llamado al ministerio de adoración.`}</div>
+        <div class="team-gifts" style="margin-top:8px;">${worshipMention.gifts.map(g=>`<span class="gift-tag">${giftNamesL[g]}</span>`).join('')}</div>
+      </div>
     </div>` : '';
 
   document.getElementById('resultsContent').innerHTML=`
@@ -1298,6 +1319,7 @@ function renderResults(topTeams, topGifts, orphans){
     </div>
 
     ${orphanHtml}
+    ${worshipHtml}
 
     <div class="teams-section-label">
       <div class="section-label">${L.results_teams_label}</div>
@@ -2017,10 +2039,10 @@ const TRANSLATIONS = {
     header_h1:'Descubre Tu',
     header_h1_span:'Equipo Ideal',
     header_sub:'Completa la evaluación para encontrar el ministerio donde Dios te diseñó para servir.',
-    prog_start:'Inicio', prog_ennea:'Eneagrama', prog_profile:'Tu Perfil', prog_gifts:'Dones', prog_results:'Resultados',
+    prog_start:'Inicio', prog_ennea:'Eneagrama', prog_disc:'DISC', prog_profile:'Tu Perfil', prog_gifts:'Dones', prog_results:'Resultados',
     footer_tagline:'Ilumina tu comunidad',
     // Name screen
-    name_label:'Iglesia Northwood · Eneagrama',
+    name_label:'Iglesia Northwood',
     name_title:'¡Bienvenido/a!', name_title_span:'¿Cómo te llamas?',
     name_desc:'Tu nombre nos ayuda a personalizar la experiencia a lo largo de la evaluación.',
     name_verse:'"Porque somos hechura de Dios, creados en Cristo Jesús para buenas obras, las cuales Dios dispuso de antemano a fin de que las pongamos en práctica."',
@@ -2179,7 +2201,7 @@ const TRANSLATIONS = {
     header_h1:'Discover Your',
     header_h1_span:'Ideal Team',
     header_sub:'Complete the assessment to find the ministry where God designed you to serve.',
-    prog_start:'Start', prog_ennea:'Enneagram', prog_profile:'Your Profile', prog_gifts:'Gifts', prog_results:'Results',
+    prog_start:'Start', prog_ennea:'Enneagram', prog_disc:'DISC', prog_profile:'Your Profile', prog_gifts:'Gifts', prog_results:'Results',
     footer_tagline:'Illuminate your community',
     // Name screen
     name_label:'Iglesia Northwood · Enneagram',
